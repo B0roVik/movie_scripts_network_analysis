@@ -1,0 +1,927 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Zielona Mila — Analiza Sieci Postaci</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Special+Elite&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:      #080e0a;
+  --bg2:     #0e1a10;
+  --bg3:     #172218;
+  --bg4:     #1f2d20;
+  --gd:      #2a5438;
+  --gm:      #3d7a50;
+  --gl:      #5ab86e;
+  --blue:    #6a9dc8;
+  --amber:   #c49030;
+  --crimson: #b54848;
+  --text:    #cdc090;
+  --textd:   #7a6a42;
+  --textb:   #e8d8a0;
+  --bdr:     #1e2e1e;
+  --bdrb:    #344830;
+  --gold:    #d4a838;
+  --comm0:   #4a9e68;
+  --comm1:   #5a8db8;
+  --comm2:   #b54848;
+  --comm3:   #c49030;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{height:100%}
+body{background:var(--bg);color:var(--text);font-family:'Special Elite',monospace;min-height:100vh;overflow-x:hidden}
+
+/* scan-line grain */
+body::before{content:'';position:fixed;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(0,0,0,.04) 3px,rgba(0,0,0,.04) 4px);pointer-events:none;z-index:2000}
+
+/* vignette */
+body::after{content:'';position:fixed;inset:0;background:radial-gradient(ellipse at 50% 50%,transparent 35%,rgba(0,12,2,.7) 100%);pointer-events:none;z-index:1999}
+
+/* ─── HEADER ─── */
+header{padding:22px 32px 16px;border-bottom:2px solid var(--bdrb);background:linear-gradient(180deg,var(--bg3) 0%,var(--bg2) 100%);position:relative;overflow:hidden}
+header::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--gm),var(--blue),var(--gm),transparent)}
+.hdr{max-width:1900px;margin:0 auto;display:flex;align-items:flex-end;gap:24px}
+h1{font-family:'Playfair Display',serif;font-size:clamp(1.7rem,3.5vw,2.8rem);font-weight:900;font-style:italic;color:var(--textb);letter-spacing:.02em;line-height:1;text-shadow:0 0 40px rgba(90,184,110,.3),0 2px 4px rgba(0,0,0,.9)}
+h1 .mile{color:var(--gl);text-shadow:0 0 30px rgba(90,184,110,.7)}
+.hsub{font-family:'Special Elite',monospace;font-size:.78rem;color:var(--textd);letter-spacing:.2em;text-transform:uppercase;padding-bottom:4px}
+.hmeta{margin-left:auto;text-align:right;font-size:.68rem;color:var(--textd);letter-spacing:.08em;line-height:1.7}
+
+/* ─── MAIN LAYOUT ─── */
+.layout{display:grid;grid-template-columns:1fr 340px;height:calc(100vh - 76px);min-height:520px;max-height:860px}
+
+/* ─── GRAPH ─── */
+.gsect{position:relative;background:var(--bg);border-right:1px solid var(--bdr);overflow:hidden}
+#graph-svg{width:100%;height:100%;display:block}
+
+/* grid texture on graph bg */
+.gsect::before{content:'';position:absolute;inset:0;background-image:linear-gradient(var(--bdr) 1px,transparent 1px),linear-gradient(90deg,var(--bdr) 1px,transparent 1px);background-size:40px 40px;opacity:.35;pointer-events:none;z-index:0}
+
+/* ─── MODE CONTROLS ─── */
+.mctrl{position:absolute;top:12px;left:12px;z-index:10;display:flex;gap:5px;flex-wrap:wrap}
+.mbtn{background:rgba(8,14,10,.85);border:1px solid var(--bdrb);color:var(--textd);font-family:'Special Elite',monospace;font-size:.67rem;letter-spacing:.12em;padding:5px 11px;cursor:pointer;transition:.2s;text-transform:uppercase;backdrop-filter:blur(4px)}
+.mbtn:hover,.mbtn.active{background:rgba(42,84,56,.8);border-color:var(--gm);color:var(--gl);text-shadow:0 0 8px rgba(90,184,110,.5)}
+.mbtn.rst{border-color:var(--amber);color:var(--amber)}
+.mbtn.rst:hover{background:rgba(196,144,48,.15)}
+
+/* ─── RIGHT PANEL ─── */
+.rpanel{display:flex;flex-direction:column;background:var(--bg2);overflow:hidden}
+
+/* NODE CARD */
+.ncard{padding:14px 16px;border-bottom:1px solid var(--bdr);min-height:220px;background:var(--bg2);overflow-y:auto;max-height:260px}
+.ncard-empty{display:flex;align-items:center;justify-content:center;text-align:center;color:var(--textd);font-size:.72rem;letter-spacing:.15em;text-transform:uppercase;height:100%;min-height:190px}
+.nname{font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:700;color:var(--textb);margin-bottom:5px;line-height:1.2}
+.ntag{display:inline-block;padding:2px 10px;font-size:.62rem;letter-spacing:.13em;text-transform:uppercase;border:1px solid;margin-bottom:10px}
+.nmet{margin-bottom:7px}
+.nmet-lbl{font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:var(--textd);display:flex;justify-content:space-between;margin-bottom:3px}
+.nmet-bg{height:3px;background:var(--bg4);position:relative;overflow:hidden}
+.nmet-fill{height:100%;position:absolute;left:0;top:0;transition:width .45s ease}
+.nconn h4{font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;color:var(--textd);margin:9px 0 5px}
+.citem{display:flex;justify-content:space-between;align-items:center;padding:3px 0;border-bottom:1px solid rgba(255,255,255,.04);font-size:.7rem}
+.cw{font-size:.63rem;color:var(--textd)}
+
+/* LEGEND */
+.legend{padding:10px 16px;border-bottom:1px solid var(--bdr);background:var(--bg2)}
+.ltit{font-size:.62rem;letter-spacing:.15em;text-transform:uppercase;color:var(--textd);margin-bottom:8px}
+.litem{display:flex;align-items:center;gap:9px;padding:4px 0;cursor:pointer;transition:opacity .2s;user-select:none}
+.litem:hover{opacity:.72}
+.litem.dimmed{opacity:.35}
+.ldot{width:9px;height:9px;border-radius:50%;flex-shrink:0}
+.ltxt{font-size:.7rem;color:var(--text);flex:1}
+.lcnt{font-size:.63rem;color:var(--textd)}
+
+/* RANKINGS */
+.rnk{flex:1;display:flex;flex-direction:column;overflow:hidden;padding:10px 16px 12px}
+.rtabs{display:flex;gap:0;margin-bottom:8px;border-bottom:1px solid var(--bdr)}
+.rtab{background:none;border:none;color:var(--textd);font-family:'Special Elite',monospace;font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;padding:5px 8px;cursor:pointer;border-bottom:2px solid transparent;transition:.2s;margin-bottom:-1px}
+.rtab.active{color:var(--gl);border-bottom-color:var(--gl)}
+.rlist{overflow-y:auto;flex:1}
+.rlist::-webkit-scrollbar{width:3px}
+.rlist::-webkit-scrollbar-track{background:var(--bg3)}
+.rlist::-webkit-scrollbar-thumb{background:var(--gd)}
+.rrow{display:grid;grid-template-columns:18px 10px 1fr 56px 44px;align-items:center;gap:5px;padding:4px 0;border-bottom:1px solid rgba(255,255,255,.04);cursor:pointer;transition:background .15s}
+.rrow:hover{background:rgba(90,184,110,.06)}
+.rnum{font-size:.6rem;color:var(--textd);text-align:right}
+.rdot{width:7px;height:7px;border-radius:50%}
+.rname{font-size:.68rem;color:var(--text);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.rbw{height:3px;background:var(--bg4);position:relative}
+.rbf{height:100%;position:absolute;left:0;top:0}
+.rval{font-size:.6rem;color:var(--textd);text-align:right}
+
+/* TOOLTIP */
+#tt{position:fixed;background:rgba(8,14,10,.96);border:1px solid var(--bdrb);padding:9px 14px;pointer-events:none;opacity:0;transition:opacity .15s;z-index:9999;max-width:210px;box-shadow:0 4px 30px rgba(0,0,0,.8)}
+#tt.vis{opacity:1}
+.ttn{font-family:'Playfair Display',serif;font-size:.88rem;color:var(--textb);margin-bottom:5px;font-weight:700}
+.ttm{font-size:.66rem;color:var(--textd);letter-spacing:.03em;line-height:1.65}
+
+/* ─── INTERPRETATION ─── */
+.interp{padding:40px 32px 64px;background:var(--bg2);border-top:2px solid var(--bdrb);position:relative}
+.interp::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--gm),var(--blue),var(--gm),transparent)}
+.iinn{max-width:1100px;margin:0 auto}
+.ihead{font-family:'Playfair Display',serif;font-size:1.7rem;font-weight:700;color:var(--textb);margin-bottom:6px}
+.ilead{font-size:.78rem;color:var(--textd);letter-spacing:.18em;text-transform:uppercase;margin-bottom:28px;padding-bottom:14px;border-bottom:1px solid var(--bdr)}
+.isect{margin-bottom:32px}
+.isect h3{font-family:'Playfair Display',serif;font-size:1.08rem;font-weight:700;color:var(--gl);margin-bottom:11px;padding-bottom:5px;border-bottom:1px solid var(--bdr)}
+.isect p{font-size:.83rem;line-height:1.9;color:var(--text);margin-bottom:9px}
+.isect p strong{color:var(--textb)}
+.igrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px;margin-top:12px}
+.icard{background:var(--bg3);border:1px solid var(--bdr);padding:14px;border-left:3px solid}
+.icard h4{font-family:'Playfair Display',serif;font-size:.92rem;margin-bottom:5px;color:var(--textb)}
+.icard p{font-size:.77rem;line-height:1.75;margin-bottom:0;color:var(--text)}
+.nbar{display:flex;flex-wrap:wrap;gap:0;border:1px solid var(--bdr);overflow:hidden;margin-top:14px}
+.nbi{flex:1;min-width:100px;padding:12px;border-right:1px solid var(--bdr);background:var(--bg3)}
+.nbi:last-child{border-right:none}
+.nbv{font-family:'Playfair Display',serif;font-size:1.5rem;color:var(--textb);font-weight:700}
+.nbl{font-size:.58rem;color:var(--textd);letter-spacing:.12em;text-transform:uppercase}
+.plist{list-style:none;counter-reset:p;margin-top:10px}
+.plist li{counter-increment:p;padding:9px 0 9px 36px;position:relative;border-bottom:1px solid rgba(255,255,255,.04);font-size:.81rem;line-height:1.8;color:var(--text)}
+.plist li::before{content:counter(p);position:absolute;left:0;top:10px;width:22px;height:22px;background:var(--gd);color:var(--gl);display:flex;align-items:center;justify-content:center;font-size:.68rem;font-family:'Playfair Display',serif;font-weight:700}
+.plist li strong{color:var(--textb)}
+
+/* Bridge edge style */
+line.bridge{stroke-dasharray:4 3;stroke:var(--amber) !important;stroke-opacity:.55 !important}
+
+@media(max-width:900px){
+  .layout{grid-template-columns:1fr;height:auto}
+  .rpanel{max-height:400px}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="hdr">
+    <div>
+      <h1><em>Zielona</em>&nbsp;<span class="mile">Mila</span></h1>
+      <div class="hsub">Analiza Sieci Postaci &nbsp;·&nbsp; Social Network Analysis</div>
+    </div>
+    <div class="hmeta">Frank Darabont, 1999<br>na podstawie Stephena Kinga</div>
+  </div>
+</header>
+
+<div class="layout">
+  <div class="gsect" id="gsect">
+    <div class="mctrl">
+      <button class="mbtn active" data-mode="degree">Stopień</button>
+      <button class="mbtn" data-mode="betweenness">Pośrednictwo</button>
+      <button class="mbtn" data-mode="closeness">Bliskość</button>
+      <button class="mbtn" data-mode="pagerank">PageRank</button>
+      <button class="mbtn rst" data-mode="reset">↺ Reset</button>
+    </div>
+    <svg id="graph-svg"></svg>
+  </div>
+
+  <div class="rpanel">
+    <div class="ncard" id="ncard">
+      <div class="ncard-empty">
+        <div><div style="font-size:2.2rem;opacity:.25;margin-bottom:10px;">⊕</div>Kliknij węzeł<br>aby zobaczyć szczegóły</div>
+      </div>
+    </div>
+    <div class="legend">
+      <div class="ltit">Społeczności</div>
+      <div id="litems"></div>
+    </div>
+    <div class="rnk">
+      <div class="rtabs">
+        <button class="rtab active" data-rank="degree">Stopień</button>
+        <button class="rtab" data-rank="betweenness">Pośred.</button>
+        <button class="rtab" data-rank="closeness">Bliskość</button>
+        <button class="rtab" data-rank="pagerank">PageRank</button>
+      </div>
+      <div class="rlist" id="rlist"></div>
+    </div>
+  </div>
+</div>
+
+<div id="tt"><div class="ttn" id="tt-n"></div><div class="ttm" id="tt-m"></div></div>
+
+<!-- ════════════════════════════════════════════════════ -->
+<section class="interp">
+  <div class="iinn">
+    <h2 class="ihead">Interpretacja Humanistyczna</h2>
+    <div class="ilead">Analiza struktury narracyjnej sieci postaci &nbsp;·&nbsp; Dane obliczone algorytmicznie</div>
+
+    <div class="isect">
+      <h3>§ 1. Podstawowe parametry sieci</h3>
+      <div class="nbar" id="nbar">
+        <div class="nbi"><span class="nbv">37</span><div class="nbl">Węzłów</div></div>
+        <div class="nbi"><span class="nbv" id="nb-e">—</span><div class="nbl">Krawędzi</div></div>
+        <div class="nbi"><span class="nbv" id="nb-d">—</span><div class="nbl">Gęstość sieci</div></div>
+        <div class="nbi"><span class="nbv">1</span><div class="nbl">Komponent spójny</div></div>
+        <div class="nbi"><span class="nbv">4</span><div class="nbl">Społeczności</div></div>
+      </div>
+      <p style="margin-top:14px"><strong>Gęstość sieci ponad 29%</strong> to wartość wyjątkowo wysoka dla narracyjnej sieci postaci — typowe sieci filmowe rzadko przekraczają 10–15%. Wyjaśnienie tkwi w architekturze opowieści: akcja rozgrywa się w szczelnie zamkniętej przestrzeni bloku śmierci E więzienia Cold Mountain, gdzie każda postać nieuchronnie wchodzi w kontakt z niemal każdą inną. Frank Darabont zamienił tę klaustrofobię na zasadę strukturalną — Zielona Mila to świat bez odległości i bez ucieczki.</p>
+      <p><strong>Pełna spójność grafu</strong> (jeden komponent, zero izolowanych węzłów) potwierdza narracyjną intencję: nawet marginalny Klaus czy Howie są wpleceni w sieć wyłącznie poprzez Paula — stulatka-narratora, który swą obecnością nadaje sens całości.</p>
+    </div>
+
+    <div class="isect">
+      <h3>§ 2. Analiza centralności — kto rządzi Zieloną Milą?</h3>
+      <div class="igrid">
+        <div class="icard" style="border-left-color:var(--comm1)">
+          <h4>Weighted Degree — Huby sieci</h4>
+          <p><strong>Paul (ok. 91 pkt wag.), Brutal (ok. 65), Coffey (ok. 57)</strong>. Hierarchia degree odzwierciedla hierarchię obecności narracyjnej. Paul jako narrator jest w każdej scenie; Brutal to jego ciało i sumienie; Coffey — centrum cudu — pojawia się w kluczowych momentach wszystkich wątków. Percy (4. miejsce) zaskakuje: wysoki degree wynika z licznych, lecz powierzchownych scen egzekucji.</p>
+        </div>
+        <div class="icard" style="border-left-color:var(--comm0)">
+          <h4>Betweenness — Brokerzy narracji</h4>
+          <p><strong>Paul (≈0.531), Brutal (≈0.107), Coffey (≈0.049)</strong>. Betweenness Paula ponad 5× przewyższa Brutala — czyniąc go jedynym pomostem między linią czasową egzekucji (lata 30.) a narracją pamięci (dom spokojnej starości, 1999). Del (≈0.036) zajmuje 3. miejsce mimo niższego degree — jego relacja z Myszą tworzy ukrytą oś narracyjną łączącą światy.</p>
+        </div>
+        <div class="icard" style="border-left-color:var(--comm2)">
+          <h4>Closeness — Centrum grawitacji</h4>
+          <p><strong>Paul, Brutal, Coffey</strong> dominują w tej mierze, potwierdzając geometryczną centralność sieci. Closeness mierzy <em>dostępność informacyjną</em> — Paul może dotrzeć do każdego węzła w minimalnej liczbie kroków. Percy i Harry mają zaskakująco niską closeness: są lokalnie gęsto połączeni, ale ich sąsiedzi to peryferyjne postacie egzekucji.</p>
+        </div>
+        <div class="icard" style="border-left-color:var(--comm3)">
+          <h4>PageRank — Prestiż i wpływ</h4>
+          <p><strong>Paul, Brutal, Coffey</strong> dominują w PageRank, analogicznie do poprzednich miar — sieć jest spójna i hierarchiczna. Znamienne: Percy ma niższy PageRank niż sugeruje jego degree, bo jego sąsiedzi to postacie drugoplanowe (Cops, Medic, Toot). Potwierdza to strukturalną izolację antagonisty — władza Percy'ego to władza formalna, nie realna.</p>
+        </div>
+      </div>
+      <p style="margin-top:14px">Wszystkie cztery miary wskazują ten sam trójkąt dominacji: <strong>Paul → Brutal → Coffey</strong>. Jest to rzadkość w sieciach filmowych — zwykle różne metryki ujawniają różne hierarchie. Tu zbieżność sugeruje, że historia jest świadomie skonstruowana wokół trójosobowego centrum moralnego: narrator, świadek i cudotwórca.</p>
+    </div>
+
+    <div class="isect">
+      <h3>§ 3. Struktura społeczności — cztery przestrzenie narracyjne</h3>
+      <p>Detekcja modularności ujawnia cztery wyraźnie odrębne społeczności, odpowiadające <em>przestrzeniom</em> i <em>funkcjom narracyjnym</em> dzieła:</p>
+      <div class="igrid">
+        <div class="icard" style="border-left-color:var(--comm0)">
+          <h4 style="color:var(--comm0)">🌿 Świat Coffeya (społ. 0)</h4>
+          <p>Coffey, Brutal, Marjorie, Melinda, Bill, The Mouse, Jack Van Hay, Kathe &amp; Cora, The Witnesses. Rdzeń nadprzyrodzonego: uzdrowiciel, uleczona (Melinda), mysia para (symbol niewinności i okrucieństwa), ofiary (Kathe i Cora) oraz ich ojciec (Jack Van Hay). Wagi krawędzi tu są najwyższe — relacje intensywne, naładowane emocjonalnie.</p>
+        </div>
+        <div class="icard" style="border-left-color:var(--comm1)">
+          <h4 style="color:var(--comm1)">🏠 Świat Paula (społ. 1)</h4>
+          <p>Paul, Elaine, Brad, Klaus, Howie, Fred Astaire, Elderly Ladies, Orderly, Pete. Rama narracyjna roku 1999 — dom spokojnej starości jako więzienie czasu i pamięci. Paul ogląda tu film z Fred Astaire i wspomina. Społeczność zbudowana wokół <em>pamięci</em>, nie działania. Krawędzie słabsze wagowo, lecz liczne — codzienne trwanie.</p>
+        </div>
+        <div class="icard" style="border-left-color:var(--comm2)">
+          <h4 style="color:var(--comm2)">⚡ Świat Percy'ego (społ. 2)</h4>
+          <p>Percy, Harry, Dean, Jan, Toot, Wild Bill, Cops, Medic. Procedura i przemoc instytucjonalna — egzekucja jako rytuał biurokratyczny. Percy jako jego deformacja; Wild Bill jako nihilistyczne lustro. Toot (mock electrocutor) i Medic jako cyrk śmierci. Ta społeczność wykonuje wyroki — lecz sama jest skazana przez narracyjny osąd Kinga.</p>
+        </div>
+        <div class="icard" style="border-left-color:var(--comm3)">
+          <h4 style="color:var(--comm3)">🪤 Świat Del (społ. 3)</h4>
+          <p>Del, Billy, Hal, Van Hay, Fat Lady, Man, Witnesses. Więźniowie oczekujący na śmierć i świadkowie egzekucji. Hal Moores jako naczelnik rozdarty między obowiązkiem a człowieczeństwem. Van Hay — ojciec ofiar — i Fat Lady tworzą moralny kontra-głos: ci, którzy chcą śmierci Coffeya. Ta społeczność zadaje pytanie: <em>kto zasługuje na umieranie?</em></p>
+        </div>
+      </div>
+      <p style="margin-top:14px"><strong>Postacie-pomosty</strong> między społecznościami: <strong>Paul</strong> łączy wszystkie cztery, <strong>Brutal</strong> przenika do świata Percy'ego, <strong>Marjorie</strong> (kochanka Klausa, mieszkanka domu opieki w Comm 0) łączy Comm 0 i 1, <strong>BILL</strong> (strażnik z emporem — Comm 0) stanowi pomost do Comm 2. Mosty strukturalne (krawędzie, których usunięcie rozspójnia sieć) koncentrują się właśnie w tych relacjach.</p>
+    </div>
+
+    <div class="isect">
+      <h3>§ 4. Anomalie strukturalne i odkrycia</h3>
+      <p><strong>DEL — ukryty broker narracji:</strong> Eduard Delacroix ma betweenness ≈ 0.036 — wyższe niż Percy (0.018) mimo niższego degree. W grafie działa jako punkt przekroczenia między życiem a śmiercią więźniów. Jego krawędź z The Mouse jest mostem strukturalnym: jedynym połączeniem małej myszy z centrum sieci, metaforycznie — jedyną nitką miłości wśród żelaza.</p>
+      <p><strong>PERCY — anomalia władzy formalnej:</strong> Wysokie degree (19), lecz niski PageRank i betweenness. Percy jest połączony z wieloma postaciami, ale <em>żadna</em> z nich nie jest hubem sieci. Idealny portret biurokratycznego tyrana: dużo połączeń, zero wpływu strukturalnego. Sieć ujawnia to, co narracja sugeruje intuicyjnie.</p>
+      <p><strong>Wysoki Clustering Coefficient:</strong> Podgraf ELDERLY LADIES / ELDERLY LADY #1 / ELDERLY LADY #2 / ORDERLY / PETE / FRED ASTAIRE tworzy niemal pełny klik — CC bliskie 1.0. Symbol <em>zamkniętego środowiska</em> domu spokojnej starości, gdzie wszyscy znają wszystkich. Analogia do bloku śmierci: dwie klatki, ta sama zasada uwięzienia.</p>
+      <p><strong>MELINDA — węzeł cudu:</strong> Mimo niskiego degree (4), Melinda jest połączona z czterema kluczowymi postaciami (Brutal, Paul, Coffey, Hal). Jej uzdrowienie przez Coffeya to narracyjny apex — węzeł, przez który przepływa sens całej historii. Betweenness = 0, lecz jej <em>narracyjna centralność</em> jest nieproporcjonalnie wysoka względem metryki.</p>
+    </div>
+
+    <div class="isect">
+      <h3>§ 5. Propozycje dalszych analiz</h3>
+      <ol class="plist">
+        <li><strong>Dynamiczna analiza temporalna:</strong> Usuwanie węzłów w porządku narracyjnym (Del → Coffey → Wild Bill) i śledzenie zmian gęstości, betweenness Paula i spójności sieci. Hipoteza: każda egzekucja powinna zwiększać betweenness Paula jako jedynego ocalałego świadka.</li>
+        <li><strong>Analiza wagi krawędzi a czas ekranu:</strong> Porównanie wag (rawWeight) z rzeczywistym czasem ekranu par postaci. Czy Paul–Coffey (waga 7.08) odpowiada proporcjonalnie więcej czasu ekranu niż Paul–Percy (5.0), mimo że Percy wydaje się bardziej obecny dramaturgicznie?</li>
+        <li><strong>Analiza porównawcza sieci więziennych u Kinga:</strong> Stworzenie analogicznych grafów dla <em>Skazanych na Shawshank</em> i <em>Mgły</em> — czy zamknięta przestrzeń zawsze generuje sieci o gęstości >25% i jednym dominującym narratorem? Czy to wzorzec gatunkowy, czy autorski.</li>
+        <li><strong>Mapowanie scen na mostach strukturalnych:</strong> Identyfikacja krawędzi-mostów i sprawdzenie, które konkretne sceny filmowe je reprezentują. Hipoteza: mosty strukturalne to sceny, których usunięcie uczyniłoby fabułę niespójną — np. scena uzdrowienia Melindy jako jedyne połączenie między światem więzienia a światem naczelnika.</li>
+        <li><strong>Modelowanie roli narracyjnej a metryki SNA:</strong> Kodowanie ról postaci (narrator, antagonista, ofiara, sprawiedliwy, cudotwórca) i zbadanie korelacji z betweenness, closeness i clustering. Czy "narrator" zawsze ma najwyższy betweenness? Czy "ofiary" mają niski clustering? Pozwoliłoby to na generalizację metod SNA jako narzędzia poetyki narracyjnej.</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+<script>
+// ═══════════════════════════════════════
+// DATA
+// ═══════════════════════════════════════
+const NODES_RAW = [
+  {id:"BRUTAL",          label:"BRUTAL",          modClass:0},
+  {id:"PAUL",            label:"PAUL",             modClass:1},
+  {id:"COFFEY",          label:"COFFEY",           modClass:0},
+  {id:"PERCY",           label:"PERCY",            modClass:2},
+  {id:"HARRY",           label:"HARRY",            modClass:2},
+  {id:"DEL",             label:"DEL",              modClass:3},
+  {id:"BILLY",           label:"BILLY",            modClass:3},
+  {id:"JAN",             label:"JAN",              modClass:2},
+  {id:"DEAN",            label:"DEAN",             modClass:2},
+  {id:"HAL",             label:"HAL",              modClass:3},
+  {id:"ELAINE",          label:"ELAINE",           modClass:1},
+  {id:"BRAD",            label:"BRAD",             modClass:1},
+  {id:"KLAUS",           label:"KLAUS",            modClass:1},
+  {id:"MARJORIE",        label:"MARJORIE",         modClass:0},
+  {id:"VAN HAY",         label:"VAN HAY",          modClass:3},
+  {id:"MELINDA",         label:"MELINDA",          modClass:0},
+  {id:"FRED ASTAIRE",    label:"FRED ASTAIRE",     modClass:1},
+  {id:"BILL",            label:"BILL",             modClass:0},
+  {id:"TOOT",            label:"TOOT",             modClass:2},
+  {id:"ELDERLY LADIES",  label:"ELDERLY LADIES",   modClass:1},
+  {id:"ELDERLY LADY #1", label:"ELDERLY LADY #1",  modClass:1},
+  {id:"ELDERLY LADY #2", label:"ELDERLY LADY #2",  modClass:1},
+  {id:"ORDERLY",         label:"ORDERLY",          modClass:1},
+  {id:"PETE",            label:"PETE",             modClass:1},
+  {id:"HOWIE",           label:"HOWIE",            modClass:1},
+  {id:"THE MOUSE",       label:"THE MOUSE",        modClass:0},
+  {id:"FAT LADY",        label:"FAT LADY",         modClass:3},
+  {id:"MAN",             label:"MAN",              modClass:3},
+  {id:"WITNESSES",       label:"WITNESSES",        modClass:3},
+  {id:"THE MEN",         label:"THE MEN",          modClass:2},
+  {id:"WILD BILL",       label:"WILD BILL",        modClass:2},
+  {id:"COP #1",          label:"COP #1",           modClass:2},
+  {id:"COP #2",          label:"COP #2",           modClass:2},
+  {id:"MEDIC",           label:"MEDIC",            modClass:2},
+  {id:"JACK VAN HAY",    label:"JACK VAN HAY",     modClass:0},
+  {id:"KATHE AND CORA",  label:"KATHE AND CORA",   modClass:0},
+  {id:"THE WITNESSES",   label:"THE WITNESSES",    modClass:0}
+];
+
+const EDGES_RAW = [
+  // BRUTAL
+  {s:"BRUTAL",t:"PAUL",w:8},{s:"BRUTAL",t:"COFFEY",w:5.46},{s:"BRUTAL",t:"PERCY",w:4.77},
+  {s:"BRUTAL",t:"HARRY",w:4.54},{s:"BRUTAL",t:"DEAN",w:3.85},{s:"BRUTAL",t:"BILLY",w:3.62},
+  {s:"BRUTAL",t:"DEL",w:3.38},{s:"BRUTAL",t:"HAL",w:2.92},{s:"BRUTAL",t:"VAN HAY",w:2.23},
+  {s:"BRUTAL",t:"JAN",w:2.23},{s:"BRUTAL",t:"MELINDA",w:2.23},{s:"BRUTAL",t:"BILL",w:2},
+  {s:"BRUTAL",t:"THE MOUSE",w:2},{s:"BRUTAL",t:"TOOT",w:2},{s:"BRUTAL",t:"FAT LADY",w:2},
+  {s:"BRUTAL",t:"MAN",w:2},{s:"BRUTAL",t:"WITNESSES",w:2},{s:"BRUTAL",t:"THE MEN",w:2},
+  {s:"BRUTAL",t:"ORDERLY",w:2},{s:"BRUTAL",t:"WILD BILL",w:2},{s:"BRUTAL",t:"COP #1",w:2},
+  {s:"BRUTAL",t:"COP #2",w:2},{s:"BRUTAL",t:"MEDIC",w:2},{s:"BRUTAL",t:"FRED ASTAIRE",w:2},
+  {s:"BRUTAL",t:"JACK VAN HAY",w:2},{s:"BRUTAL",t:"KATHE AND CORA",w:2},
+  {s:"BRUTAL",t:"MARJORIE",w:2},{s:"BRUTAL",t:"THE WITNESSES",w:2},
+  // PAUL
+  {s:"PAUL",t:"COFFEY",w:7.08},{s:"PAUL",t:"PERCY",w:5},{s:"PAUL",t:"HARRY",w:4.77},
+  {s:"PAUL",t:"DEL",w:4.08},{s:"PAUL",t:"BILLY",w:4.08},{s:"PAUL",t:"JAN",w:3.85},
+  {s:"PAUL",t:"DEAN",w:3.85},{s:"PAUL",t:"HAL",w:3.62},{s:"PAUL",t:"ELAINE",w:3.15},
+  {s:"PAUL",t:"BRAD",w:2.46},{s:"PAUL",t:"KLAUS",w:2.46},{s:"PAUL",t:"MARJORIE",w:2.46},
+  {s:"PAUL",t:"VAN HAY",w:2.46},{s:"PAUL",t:"FRED ASTAIRE",w:2.23},{s:"PAUL",t:"TOOT",w:2.23},
+  {s:"PAUL",t:"MELINDA",w:2.23},{s:"PAUL",t:"ELDERLY LADIES",w:2},{s:"PAUL",t:"ELDERLY LADY #1",w:2},
+  {s:"PAUL",t:"ELDERLY LADY #2",w:2},{s:"PAUL",t:"ORDERLY",w:2},{s:"PAUL",t:"PETE",w:2},
+  {s:"PAUL",t:"HOWIE",w:2},{s:"PAUL",t:"BILL",w:2},{s:"PAUL",t:"THE MOUSE",w:2},
+  {s:"PAUL",t:"FAT LADY",w:2},{s:"PAUL",t:"MAN",w:2},{s:"PAUL",t:"WITNESSES",w:2},
+  {s:"PAUL",t:"THE MEN",w:2},{s:"PAUL",t:"WILD BILL",w:2},{s:"PAUL",t:"COP #1",w:2},
+  {s:"PAUL",t:"COP #2",w:2},{s:"PAUL",t:"MEDIC",w:2},{s:"PAUL",t:"JACK VAN HAY",w:2},
+  {s:"PAUL",t:"KATHE AND CORA",w:2},{s:"PAUL",t:"THE WITNESSES",w:2},
+  // COFFEY
+  {s:"COFFEY",t:"DEL",w:3.85},{s:"COFFEY",t:"HARRY",w:3.38},{s:"COFFEY",t:"PERCY",w:3.38},
+  {s:"COFFEY",t:"BILLY",w:3.38},{s:"COFFEY",t:"HAL",w:2.92},{s:"COFFEY",t:"DEAN",w:2.92},
+  {s:"COFFEY",t:"MELINDA",w:2.46},{s:"COFFEY",t:"BILL",w:2},{s:"COFFEY",t:"THE MOUSE",w:2},
+  {s:"COFFEY",t:"TOOT",w:2},{s:"COFFEY",t:"FAT LADY",w:2},{s:"COFFEY",t:"MAN",w:2},
+  {s:"COFFEY",t:"VAN HAY",w:2},{s:"COFFEY",t:"WITNESSES",w:2},{s:"COFFEY",t:"WILD BILL",w:2},
+  {s:"COFFEY",t:"FRED ASTAIRE",w:2},{s:"COFFEY",t:"JACK VAN HAY",w:2},
+  {s:"COFFEY",t:"KATHE AND CORA",w:2},{s:"COFFEY",t:"MARJORIE",w:2},
+  {s:"COFFEY",t:"THE WITNESSES",w:2},
+  // PERCY
+  {s:"PERCY",t:"DEL",w:3.15},{s:"PERCY",t:"HARRY",w:3.15},{s:"PERCY",t:"DEAN",w:3.15},
+  {s:"PERCY",t:"BILLY",w:2.69},{s:"PERCY",t:"VAN HAY",w:2.46},{s:"PERCY",t:"HAL",w:2.46},
+  {s:"PERCY",t:"BILL",w:2},{s:"PERCY",t:"THE MOUSE",w:2},{s:"PERCY",t:"TOOT",w:2},
+  {s:"PERCY",t:"FAT LADY",w:2},{s:"PERCY",t:"MAN",w:2},{s:"PERCY",t:"WITNESSES",w:2},
+  {s:"PERCY",t:"WILD BILL",w:2},{s:"PERCY",t:"COP #1",w:2},{s:"PERCY",t:"COP #2",w:2},
+  {s:"PERCY",t:"MEDIC",w:2},
+  // HARRY
+  {s:"HARRY",t:"DEAN",w:3.38},{s:"HARRY",t:"DEL",w:2.69},{s:"HARRY",t:"BILLY",w:2.69},
+  {s:"HARRY",t:"TOOT",w:2.23},{s:"HARRY",t:"JAN",w:2.23},{s:"HARRY",t:"BILL",w:2},
+  {s:"HARRY",t:"THE MOUSE",w:2},{s:"HARRY",t:"VAN HAY",w:2},{s:"HARRY",t:"THE MEN",w:2},
+  {s:"HARRY",t:"WILD BILL",w:2},{s:"HARRY",t:"COP #1",w:2},{s:"HARRY",t:"COP #2",w:2},
+  {s:"HARRY",t:"HAL",w:2},{s:"HARRY",t:"MEDIC",w:2},
+  // DEL
+  {s:"DEL",t:"BILLY",w:2.69},{s:"DEL",t:"BILL",w:2.23},{s:"DEL",t:"THE MOUSE",w:2},
+  {s:"DEL",t:"TOOT",w:2},{s:"DEL",t:"DEAN",w:2},{s:"DEL",t:"FAT LADY",w:2},
+  {s:"DEL",t:"HAL",w:2},{s:"DEL",t:"MAN",w:2},{s:"DEL",t:"VAN HAY",w:2},
+  {s:"DEL",t:"WITNESSES",w:2},
+  // BILLY
+  {s:"BILLY",t:"DEAN",w:2.46},{s:"BILLY",t:"FAT LADY",w:2},{s:"BILLY",t:"HAL",w:2},
+  {s:"BILLY",t:"MAN",w:2},{s:"BILLY",t:"VAN HAY",w:2},{s:"BILLY",t:"WITNESSES",w:2},
+  {s:"BILLY",t:"WILD BILL",w:2},
+  // JAN
+  {s:"JAN",t:"DEAN",w:2.23},{s:"JAN",t:"THE MEN",w:2},
+  // DEAN
+  {s:"DEAN",t:"TOOT",w:2},{s:"DEAN",t:"VAN HAY",w:2},{s:"DEAN",t:"THE MEN",w:2},
+  {s:"DEAN",t:"WILD BILL",w:2},{s:"DEAN",t:"COP #1",w:2},{s:"DEAN",t:"COP #2",w:2},
+  {s:"DEAN",t:"HAL",w:2},{s:"DEAN",t:"MEDIC",w:2},
+  // HAL
+  {s:"HAL",t:"MELINDA",w:2.46},{s:"HAL",t:"FAT LADY",w:2},{s:"HAL",t:"MAN",w:2},
+  {s:"HAL",t:"VAN HAY",w:2},{s:"HAL",t:"WITNESSES",w:2},{s:"HAL",t:"COP #1",w:2},
+  {s:"HAL",t:"COP #2",w:2},{s:"HAL",t:"MEDIC",w:2},
+  // ELAINE
+  {s:"ELAINE",t:"BRAD",w:2.46},{s:"ELAINE",t:"ELDERLY LADIES",w:2},{s:"ELAINE",t:"ELDERLY LADY #1",w:2},
+  {s:"ELAINE",t:"ELDERLY LADY #2",w:2},{s:"ELAINE",t:"FRED ASTAIRE",w:2},
+  {s:"ELAINE",t:"ORDERLY",w:2},{s:"ELAINE",t:"PETE",w:2},
+  // BRAD
+  {s:"BRAD",t:"ELDERLY LADIES",w:2},{s:"BRAD",t:"ELDERLY LADY #1",w:2},
+  {s:"BRAD",t:"ELDERLY LADY #2",w:2},{s:"BRAD",t:"FRED ASTAIRE",w:2},
+  {s:"BRAD",t:"ORDERLY",w:2},{s:"BRAD",t:"PETE",w:2},
+  // KLAUS
+  {s:"KLAUS",t:"MARJORIE",w:2.23},{s:"KLAUS",t:"HOWIE",w:2},
+  // MARJORIE
+  {s:"MARJORIE",t:"HOWIE",w:2},{s:"MARJORIE",t:"JACK VAN HAY",w:2},
+  {s:"MARJORIE",t:"KATHE AND CORA",w:2},{s:"MARJORIE",t:"THE WITNESSES",w:2},
+  // VAN HAY
+  {s:"VAN HAY",t:"TOOT",w:2},{s:"VAN HAY",t:"FAT LADY",w:2},
+  {s:"VAN HAY",t:"MAN",w:2},{s:"VAN HAY",t:"WITNESSES",w:2},
+  // FRED ASTAIRE
+  {s:"FRED ASTAIRE",t:"ELDERLY LADIES",w:2},{s:"FRED ASTAIRE",t:"ELDERLY LADY #1",w:2},
+  {s:"FRED ASTAIRE",t:"ELDERLY LADY #2",w:2},{s:"FRED ASTAIRE",t:"ORDERLY",w:2},
+  {s:"FRED ASTAIRE",t:"PETE",w:2},
+  // BILL
+  {s:"BILL",t:"THE MOUSE",w:2},
+  // ELDERLY LADIES
+  {s:"ELDERLY LADIES",t:"ELDERLY LADY #1",w:2},{s:"ELDERLY LADIES",t:"ELDERLY LADY #2",w:2},
+  {s:"ELDERLY LADIES",t:"ORDERLY",w:2},{s:"ELDERLY LADIES",t:"PETE",w:2},
+  // ELDERLY LADY #1
+  {s:"ELDERLY LADY #1",t:"ELDERLY LADY #2",w:2},{s:"ELDERLY LADY #1",t:"ORDERLY",w:2},
+  {s:"ELDERLY LADY #1",t:"PETE",w:2},
+  // ELDERLY LADY #2
+  {s:"ELDERLY LADY #2",t:"ORDERLY",w:2},{s:"ELDERLY LADY #2",t:"PETE",w:2},
+  // ORDERLY
+  {s:"ORDERLY",t:"PETE",w:2},
+  // FAT LADY
+  {s:"FAT LADY",t:"MAN",w:2},{s:"FAT LADY",t:"WITNESSES",w:2},
+  // MAN
+  {s:"MAN",t:"WITNESSES",w:2},
+  // COP #1
+  {s:"COP #1",t:"COP #2",w:2},{s:"COP #1",t:"MEDIC",w:2},
+  // COP #2
+  {s:"COP #2",t:"MEDIC",w:2},
+  // JACK VAN HAY
+  {s:"JACK VAN HAY",t:"KATHE AND CORA",w:2},{s:"JACK VAN HAY",t:"THE WITNESSES",w:2},
+  // KATHE AND CORA
+  {s:"KATHE AND CORA",t:"THE WITNESSES",w:2}
+];
+
+// ═══════════════════════════════════════
+// SNA COMPUTATIONS
+// ═══════════════════════════════════════
+const nodeIdx = {};
+NODES_RAW.forEach((nd, i) => { nodeIdx[nd.id] = i; });
+const N = NODES_RAW.length;
+
+// Build adjacency list
+const adj = Array.from({length: N}, () => []);
+EDGES_RAW.forEach(e => {
+  const si = nodeIdx[e.s], ti = nodeIdx[e.t];
+  adj[si].push({n: ti, w: e.w});
+  adj[ti].push({n: si, w: e.w});
+});
+
+// 1. Weighted Degree
+const wDeg = adj.map(a => a.reduce((s, e) => s + e.w, 0));
+
+// 2. Betweenness Centrality — Brandes BFS
+function calcBetweenness() {
+  const bc = new Float64Array(N);
+  for (let s = 0; s < N; s++) {
+    const stack = [], pred = Array.from({length: N}, () => []);
+    const sig = new Float64Array(N);
+    sig[s] = 1;
+    const dist = new Int32Array(N).fill(-1);
+    dist[s] = 0;
+    const q = [s]; let qi = 0;
+    while (qi < q.length) {
+      const v = q[qi++]; stack.push(v);
+      for (const {n: w} of adj[v]) {
+        if (dist[w] < 0) { q.push(w); dist[w] = dist[v] + 1; }
+        if (dist[w] === dist[v] + 1) { sig[w] += sig[v]; pred[w].push(v); }
+      }
+    }
+    const delta = new Float64Array(N);
+    while (stack.length) {
+      const w = stack.pop();
+      for (const v of pred[w]) delta[v] += (sig[v] / sig[w]) * (1 + delta[w]);
+      if (w !== s) bc[w] += delta[w];
+    }
+  }
+  const norm = (N - 1) * (N - 2) / 2;
+  return Array.from(bc).map(v => v / norm);
+}
+
+// 3. Closeness Centrality — BFS
+function calcCloseness() {
+  return NODES_RAW.map((_, s) => {
+    const dist = new Int32Array(N).fill(-1);
+    dist[s] = 0;
+    const q = [s]; let qi = 0;
+    while (qi < q.length) {
+      const v = q[qi++];
+      for (const {n: w} of adj[v]) {
+        if (dist[w] < 0) { dist[w] = dist[v] + 1; q.push(w); }
+      }
+    }
+    let sum = 0, reach = 0;
+    dist.forEach(d => { if (d > 0) { sum += d; reach++; } });
+    return sum === 0 ? 0 : (reach / (N - 1)) * (reach / sum);
+  });
+}
+
+// 4. PageRank
+function calcPageRank(d = 0.85, iters = 20) {
+  let pr = new Float64Array(N).fill(1 / N);
+  const outD = adj.map(a => a.length);
+  for (let it = 0; it < iters; it++) {
+    const nPR = new Float64Array(N).fill((1 - d) / N);
+    for (let u = 0; u < N; u++) {
+      if (outD[u] === 0) continue;
+      for (const {n: v} of adj[u]) nPR[v] += d * pr[u] / outD[u];
+    }
+    pr = nPR;
+  }
+  return Array.from(pr);
+}
+
+// 5. Clustering Coefficient
+function calcClustering() {
+  return NODES_RAW.map((_, v) => {
+    const nbrs = new Set(adj[v].map(e => e.n));
+    const k = nbrs.size;
+    if (k < 2) return 0;
+    let tri = 0;
+    for (const u of nbrs)
+      for (const {n: w} of adj[u])
+        if (w !== v && nbrs.has(w)) tri++;
+    return tri / 2 / (k * (k - 1));
+  });
+}
+
+// 6. Bridges (Tarjan)
+function findBridges() {
+  const disc = new Int32Array(N).fill(-1), low = new Int32Array(N);
+  const brSet = new Set(); let timer = 0;
+  function dfs(u, par) {
+    disc[u] = low[u] = timer++;
+    for (const {n: v} of adj[u]) {
+      if (disc[v] < 0) {
+        dfs(v, u); low[u] = Math.min(low[u], low[v]);
+        if (low[v] > disc[u]) brSet.add([Math.min(u,v), Math.max(u,v)].join('-'));
+      } else if (v !== par) low[u] = Math.min(low[u], disc[v]);
+    }
+  }
+  for (let i = 0; i < N; i++) if (disc[i] < 0) dfs(i, -1);
+  // Convert indices to ID keys
+  const brKeys = new Set();
+  brSet.forEach(k => {
+    const [i, j] = k.split('-').map(Number);
+    brKeys.add([NODES_RAW[i].id, NODES_RAW[j].id].sort().join('|||'));
+  });
+  return brKeys;
+}
+
+const betw = calcBetweenness();
+const clos = calcCloseness();
+const pr   = calcPageRank();
+const clst = calcClustering();
+const bridges = findBridges();
+
+function norm(arr) {
+  const mn = Math.min(...arr), mx = Math.max(...arr);
+  return arr.map(v => mx > mn ? (v - mn) / (mx - mn) : 0);
+}
+const wDN = norm(wDeg), bN = norm(betw), cN = norm(clos), pN = norm(pr), ccN = norm(clst);
+
+// Attach metrics to node objects
+const nodes = NODES_RAW.map((nd, i) => ({
+  ...nd,
+  wDeg: wDeg[i], betw: betw[i], clos: clos[i], pr: pr[i], clst: clst[i],
+  wDN: wDN[i],   bN:   bN[i],   cN:   cN[i],   pN: pN[i], ccN: ccN[i]
+}));
+
+const nodeMap = new Map(nodes.map(n => [n.id, n]));
+
+const COMM_HEX   = ['#4a9e68','#5a8db8','#b54848','#c49030'];
+const COMM_NAMES = ["Świat Coffeya","Świat Paula / Dom Opieki","Świat Percy'ego","Świat Del / Egzekucja"];
+
+// ═══════════════════════════════════════
+// D3 SETUP
+// ═══════════════════════════════════════
+const gsect  = document.getElementById('gsect');
+let W = gsect.clientWidth, H = gsect.clientHeight;
+
+const svg = d3.select('#graph-svg');
+const g   = svg.append('g');
+
+// Zoom
+const zoom = d3.zoom().scaleExtent([0.15, 6])
+  .on('zoom', ev => g.attr('transform', ev.transform));
+svg.call(zoom);
+
+// bg click
+svg.on('click', ev => {
+  if (ev.target === svg.node() || ev.target.tagName === 'rect') {
+    resetHL(); resetCard();
+  }
+});
+
+// watermark
+g.append('text').attr('x', 20).attr('y', 42)
+  .attr('fill','rgba(90,184,110,0.04)')
+  .attr('font-family','Playfair Display,serif')
+  .attr('font-size','80px').attr('font-weight','900')
+  .attr('font-style','italic')
+  .text('GREEN MILE');
+
+// bg rect for click capture
+g.append('rect').attr('x',-5000).attr('y',-5000)
+  .attr('width',10000).attr('height',10000).attr('fill','transparent');
+
+// Links
+const linksData = EDGES_RAW.map(e => ({source:e.s, target:e.t, weight:e.w}));
+const wMin = Math.min(...EDGES_RAW.map(e=>e.w));
+const wMax = Math.max(...EDGES_RAW.map(e=>e.w));
+const wRng = wMax - wMin;
+
+const sim = d3.forceSimulation(nodes)
+  .force('link', d3.forceLink(linksData).id(d=>d.id)
+    .distance(d => 90 - ((d.weight-wMin)/wRng)*45)
+    .strength(d => 0.25 + ((d.weight-wMin)/wRng)*0.4))
+  .force('charge', d3.forceManyBody().strength(-260))
+  .force('center', d3.forceCenter(W/2, H/2))
+  .force('collide', d3.forceCollide().radius(d => getR(d,'degree')+7))
+  .alpha(1).alphaDecay(0.018);
+
+const lSel = g.append('g').attr('class','links')
+  .selectAll('line').data(linksData).join('line')
+  .attr('stroke', d => {
+    const sk = [d.source, d.target].sort().join('|||');
+    return bridges.has(sk) ? '#c49030' : '#2a4030';
+  })
+  .attr('stroke-opacity', d => 0.18 + ((d.weight-wMin)/wRng)*0.55)
+  .attr('stroke-width',  d => 0.5 + ((d.weight-wMin)/wRng)*3.5)
+  .attr('stroke-dasharray', d => {
+    const sk = [d.source, d.target].sort().join('|||');
+    return bridges.has(sk) ? '4 3' : null;
+  });
+
+const nSel = g.append('g').attr('class','nodes')
+  .selectAll('g').data(nodes).join('g')
+  .attr('class','ng').style('cursor','pointer')
+  .call(d3.drag()
+    .on('start', (ev,d) => { if(!ev.active) sim.alphaTarget(.2).restart(); d.fx=d.x; d.fy=d.y; })
+    .on('drag',  (ev,d) => { d.fx=ev.x; d.fy=ev.y; })
+    .on('end',   (ev,d) => { if(!ev.active) sim.alphaTarget(0); d.fx=null; d.fy=null; }))
+  .on('click', (ev,d)      => { ev.stopPropagation(); focusNode(d); showCard(d); })
+  .on('mouseover', (ev,d)  => showTT(ev,d))
+  .on('mouseout',  ()      => hideTT())
+  .on('mousemove', ev      => moveTT(ev));
+
+nSel.append('circle')
+  .attr('r', d => getR(d,'degree'))
+  .attr('fill', d => COMM_HEX[d.modClass])
+  .attr('fill-opacity', 0.82)
+  .attr('stroke', d => COMM_HEX[d.modClass])
+  .attr('stroke-width', 1.5).attr('stroke-opacity', 0.5);
+
+// Glow filter
+const defs = svg.append('defs');
+const fl = defs.append('filter').attr('id','glow');
+fl.append('feGaussianBlur').attr('stdDeviation','3').attr('result','blur');
+const fM = fl.append('feMerge');
+fM.append('feMergeNode').attr('in','blur');
+fM.append('feMergeNode').attr('in','SourceGraphic');
+
+nSel.append('text')
+  .attr('text-anchor','middle')
+  .attr('dy', d => getR(d,'degree') + 10)
+  .attr('fill','#c4b870').attr('pointer-events','none')
+  .attr('font-family',"'Special Elite',monospace")
+  .attr('font-size', d => Math.max(7, Math.min(11, getR(d,'degree')*0.6)));
+
+nSel.select('text').text(d => d.label);
+
+sim.on('tick', () => {
+  lSel.attr('x1',d=>d.source.x).attr('y1',d=>d.source.y)
+      .attr('x2',d=>d.target.x).attr('y2',d=>d.target.y);
+  nSel.attr('transform', d=>`translate(${d.x},${d.y})`);
+});
+
+// Auto-zoom fit
+setTimeout(() => {
+  sim.alpha(0.08);
+  setTimeout(() => {
+    const xs = nodes.map(n=>n.x), ys = nodes.map(n=>n.y);
+    const pad = 50;
+    const x0=Math.min(...xs)-pad, x1=Math.max(...xs)+pad;
+    const y0=Math.min(...ys)-pad, y1=Math.max(...ys)+pad;
+    const sc = Math.min(W/(x1-x0), H/(y1-y0), 2.5);
+    const tx = (W - sc*(x0+x1))/2, ty = (H - sc*(y0+y1))/2;
+    svg.transition().duration(1200).ease(d3.easeCubicInOut)
+      .call(zoom.transform, d3.zoomIdentity.translate(tx,ty).scale(sc));
+  }, 2500);
+}, 3500);
+
+// ═══════════════════════════════════════
+// MODE CONTROL
+// ═══════════════════════════════════════
+let curMode = 'degree';
+
+function getR(d, mode) {
+  const base = 5, scale = 22;
+  switch(mode) {
+    case 'degree':      return base + d.wDN  * scale;
+    case 'betweenness': return base + d.bN   * scale;
+    case 'closeness':   return base + d.cN   * scale;
+    case 'pagerank':    return base + d.pN   * scale;
+    default:            return base + d.wDN  * scale;
+  }
+}
+
+document.querySelectorAll('.mbtn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const mode = btn.dataset.mode;
+    if (mode === 'reset') {
+      resetHL(); resetCard();
+      curMode = 'degree';
+      document.querySelectorAll('.mbtn').forEach(b => b.classList.remove('active'));
+      document.querySelector('[data-mode="degree"]').classList.add('active');
+    } else {
+      curMode = mode;
+      document.querySelectorAll('.mbtn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+    }
+    nSel.selectAll('circle').transition().duration(500).attr('r', d => getR(d,curMode));
+    nSel.selectAll('text').transition().duration(500)
+      .attr('dy', d => getR(d,curMode)+10)
+      .attr('font-size', d => Math.max(7, Math.min(11, getR(d,curMode)*0.6)));
+    sim.force('collide', d3.forceCollide().radius(d => getR(d,curMode)+7));
+    sim.alpha(0.08).restart();
+  });
+});
+
+// ═══════════════════════════════════════
+// HIGHLIGHT
+// ═══════════════════════════════════════
+function focusNode(d) {
+  const nbr = new Set(linksData
+    .filter(l => l.source.id===d.id||l.target.id===d.id)
+    .flatMap(l=>[l.source.id,l.target.id]));
+  nbr.add(d.id);
+
+  nSel.selectAll('circle')
+    .attr('opacity', nd => nbr.has(nd.id) ? 1 : 0.06)
+    .attr('stroke-width', nd => nd.id===d.id ? 3 : 1.5)
+    .attr('stroke', nd => nd.id===d.id ? '#a0f0c0' : COMM_HEX[nd.modClass])
+    .attr('stroke-opacity', nd => nd.id===d.id ? 1 : 0.4)
+    .attr('filter', nd => nd.id===d.id ? 'url(#glow)' : null);
+  nSel.selectAll('text').attr('opacity', nd => nbr.has(nd.id) ? 1 : 0.05);
+  lSel.attr('opacity', l => (l.source.id===d.id||l.target.id===d.id) ? 0.9 : 0.03)
+      .attr('stroke', l => (l.source.id===d.id||l.target.id===d.id) ? '#5ab86e' : '#2a4030');
+}
+
+function resetHL() {
+  nSel.selectAll('circle')
+    .attr('opacity',1).attr('stroke-width',1.5)
+    .attr('stroke', d => COMM_HEX[d.modClass])
+    .attr('stroke-opacity',0.5).attr('filter',null);
+  nSel.selectAll('text').attr('opacity',1);
+  lSel.attr('opacity',1).attr('stroke', d => {
+    const sk = [d.source.id||d.source, d.target.id||d.target].sort().join('|||');
+    return bridges.has(sk) ? '#c49030' : '#2a4030';
+  });
+}
+
+// ═══════════════════════════════════════
+// TOOLTIP
+// ═══════════════════════════════════════
+const ttEl = document.getElementById('tt');
+const ttN  = document.getElementById('tt-n');
+const ttM  = document.getElementById('tt-m');
+
+function showTT(ev, d) {
+  ttN.textContent = d.label;
+  ttM.innerHTML = `Społeczność: <span style="color:${COMM_HEX[d.modClass]}">${COMM_NAMES[d.modClass]}</span><br>
+    Stopień ważony: ${d.wDeg.toFixed(2)}<br>
+    Pośrednictwo: ${d.betw.toFixed(4)}<br>
+    Bliskość: ${d.clos.toFixed(4)}<br>
+    PageRank: ${d.pr.toFixed(5)}`;
+  ttEl.classList.add('vis'); moveTT(ev);
+}
+function hideTT()  { ttEl.classList.remove('vis'); }
+function moveTT(ev){
+  ttEl.style.left = Math.min(ev.clientX+16, window.innerWidth-230) + 'px';
+  ttEl.style.top  = Math.min(ev.clientY-12, window.innerHeight-170) + 'px';
+}
+
+// ═══════════════════════════════════════
+// NODE CARD
+// ═══════════════════════════════════════
+function showCard(d) {
+  const cc = COMM_HEX[d.modClass];
+  const mx = {wDeg:Math.max(...nodes.map(n=>n.wDeg)), betw:Math.max(...nodes.map(n=>n.betw)),
+              clos:Math.max(...nodes.map(n=>n.clos)),  pr:Math.max(...nodes.map(n=>n.pr)),
+              clst:Math.max(...nodes.map(n=>n.clst))};
+
+  const conns = linksData
+    .filter(l => l.source.id===d.id||l.target.id===d.id)
+    .sort((a,b) => b.weight-a.weight).slice(0,5)
+    .map(l => ({id: l.source.id===d.id ? l.target.id : l.source.id, w: l.weight}));
+
+  document.getElementById('ncard').innerHTML = `
+    <div class="nname">${d.label}</div>
+    <div class="ntag" style="color:${cc};border-color:${cc};background:${cc}18">${COMM_NAMES[d.modClass]}</div>
+    ${mbar('Stopień (ważony)', d.wDeg.toFixed(2), d.wDeg/mx.wDeg, cc)}
+    ${mbar('Pośrednictwo', d.betw.toFixed(4), d.betw/mx.betw, cc)}
+    ${mbar('Bliskość', d.clos.toFixed(4), d.clos/mx.clos, cc)}
+    ${mbar('PageRank', d.pr.toFixed(5), d.pr/mx.pr, cc)}
+    ${mbar('Klasteryzacja', d.clst.toFixed(3), mx.clst>0?d.clst/mx.clst:0, cc)}
+    <div class="nconn"><h4>Najsilniejsze powiązania</h4>
+      ${conns.map(c => {
+        const cn = nodeMap.get(c.id);
+        const col = cn ? COMM_HEX[cn.modClass] : '#888';
+        return `<div class="citem"><span style="color:${col}">${c.id}</span><span class="cw">${c.w.toFixed(2)}</span></div>`;
+      }).join('')}
+    </div>`;
+}
+
+function mbar(label, val, frac, color) {
+  return `<div class="nmet">
+    <div class="nmet-lbl"><span>${label}</span><span>${val}</span></div>
+    <div class="nmet-bg"><div class="nmet-fill" style="width:${(Math.min(frac||0,1)*100).toFixed(1)}%;background:${color}"></div></div>
+  </div>`;
+}
+
+function resetCard() {
+  document.getElementById('ncard').innerHTML =
+    `<div class="ncard-empty"><div><div style="font-size:2.2rem;opacity:.25;margin-bottom:10px;">⊕</div>Kliknij węzeł<br>aby zobaczyć szczegóły</div></div>`;
+}
+
+// ═══════════════════════════════════════
+// LEGEND
+// ═══════════════════════════════════════
+const lc = [0,1,2,3].map(c => nodes.filter(n=>n.modClass===c).length);
+let activeComm = null;
+
+[0,1,2,3].forEach(c => {
+  const el = document.createElement('div');
+  el.className = 'litem'; el.dataset.c = c;
+  el.innerHTML = `<div class="ldot" style="background:${COMM_HEX[c]}"></div>
+    <div class="ltxt">${COMM_NAMES[c]}</div>
+    <div class="lcnt">${lc[c]}</div>`;
+  el.addEventListener('click', () => {
+    if (activeComm === c) {
+      activeComm = null; resetHL();
+      document.querySelectorAll('.litem').forEach(el => el.classList.remove('dimmed'));
+      updateRank(curRank, null);
+    } else {
+      activeComm = c;
+      const ids = new Set(nodes.filter(n=>n.modClass===c).map(n=>n.id));
+      nSel.selectAll('circle').attr('opacity', nd => ids.has(nd.id)?1:0.06);
+      nSel.selectAll('text').attr('opacity', nd => ids.has(nd.id)?1:0.06);
+      lSel.attr('opacity', l => (ids.has(l.source.id)&&ids.has(l.target.id))?0.85:0.03);
+      document.querySelectorAll('.litem').forEach(el => {
+        el.classList.toggle('dimmed', +el.dataset.c !== c);
+      });
+      updateRank(curRank, c);
+    }
+  });
+  document.getElementById('litems').appendChild(el);
+});
+
+// ═══════════════════════════════════════
+// RANKINGS
+// ═══════════════════════════════════════
+let curRank = 'degree';
+
+function getMetric(n, m) {
+  return {degree:n.wDeg, betweenness:n.betw, closeness:n.clos, pagerank:n.pr}[m];
+}
+
+function updateRank(mode, commFilter) {
+  let sorted = [...nodes].sort((a,b) => getMetric(b,mode)-getMetric(a,mode));
+  if (commFilter !== null && commFilter !== undefined) sorted = sorted.filter(n=>n.modClass===commFilter);
+  sorted = sorted.slice(0,15);
+  const mx = sorted.length ? Math.max(...sorted.map(n=>getMetric(n,mode))) : 1;
+
+  document.getElementById('rlist').innerHTML = sorted.map((nd,i) => `
+    <div class="rrow" data-id="${nd.id}">
+      <span class="rnum">${i+1}</span>
+      <div class="rdot" style="background:${COMM_HEX[nd.modClass]}"></div>
+      <span class="rname" title="${nd.label}">${nd.label}</span>
+      <div class="rbw"><div class="rbf" style="width:${mx>0?(getMetric(nd,mode)/mx*100).toFixed(1):0}%;background:${COMM_HEX[nd.modClass]}"></div></div>
+      <span class="rval">${getMetric(nd,mode).toFixed(3)}</span>
+    </div>`).join('');
+
+  document.querySelectorAll('.rrow').forEach(row => {
+    row.addEventListener('click', () => {
+      const nd = nodeMap.get(row.dataset.id);
+      if (nd) { focusNode(nd); showCard(nd); }
+    });
+  });
+}
+
+document.querySelectorAll('.rtab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    document.querySelectorAll('.rtab').forEach(t=>t.classList.remove('active'));
+    tab.classList.add('active');
+    curRank = tab.dataset.rank;
+    updateRank(curRank, activeComm);
+  });
+});
+
+updateRank('degree', null);
+
+// ═══════════════════════════════════════
+// NET STATS
+// ═══════════════════════════════════════
+document.getElementById('nb-e').textContent = EDGES_RAW.length;
+document.getElementById('nb-d').textContent = (2*EDGES_RAW.length/(N*(N-1))).toFixed(3);
+
+// ═══════════════════════════════════════
+// RESIZE
+// ═══════════════════════════════════════
+new ResizeObserver(() => {
+  W = gsect.clientWidth; H = gsect.clientHeight;
+  sim.force('center', d3.forceCenter(W/2, H/2)).alpha(0.06).restart();
+}).observe(gsect);
+</script>
+</body>
+</html>
