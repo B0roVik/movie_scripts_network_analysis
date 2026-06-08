@@ -1,0 +1,1168 @@
+<?xml version='1.0' encoding='utf-8'?>
+<graphml xmlns="http://graphml.graphdrawing.org/xmlns" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd"><key id="d1" for="edge" attr.name="weight" attr.type="long"/>
+<key id="d0" for="node" attr.name="label" attr.type="string"/>
+<graph edgedefault="undirected"><node id="BRUTAL">
+  <data key="d0">BRUTAL</data>
+</node>
+<node id="PAUL">
+  <data key="d0">PAUL</data>
+</node>
+<node id="COFFEY">
+  <data key="d0">COFFEY</data>
+</node>
+<node id="PERCY">
+  <data key="d0">PERCY</data>
+</node>
+<node id="HARRY">
+  <data key="d0">HARRY</data>
+</node>
+<node id="DEL">
+  <data key="d0">DEL</data>
+</node>
+<node id="BILLY">
+  <data key="d0">BILLY</data>
+</node>
+<node id="JAN">
+  <data key="d0">JAN</data>
+</node>
+<node id="DEAN">
+  <data key="d0">DEAN</data>
+</node>
+<node id="HAL">
+  <data key="d0">HAL</data>
+</node>
+<node id="ELAINE">
+  <data key="d0">ELAINE</data>
+</node>
+<node id="BRAD">
+  <data key="d0">BRAD</data>
+</node>
+<node id="KLAUS">
+  <data key="d0">KLAUS</data>
+</node>
+<node id="MARJORIE">
+  <data key="d0">MARJORIE</data>
+</node>
+<node id="VAN HAY">
+  <data key="d0">VAN HAY</data>
+</node>
+<node id="MELINDA">
+  <data key="d0">MELINDA</data>
+</node>
+<node id="FRED ASTAIRE">
+  <data key="d0">FRED ASTAIRE</data>
+</node>
+<node id="BILL">
+  <data key="d0">BILL</data>
+</node>
+<node id="TOOT">
+  <data key="d0">TOOT</data>
+</node>
+<node id="TIMECUT:">
+  <data key="d0">TIMECUT:</data>
+</node>
+<node id="ELDERLY LADIES">
+  <data key="d0">ELDERLY LADIES</data>
+</node>
+<node id="ELDERLY LADY #1">
+  <data key="d0">ELDERLY LADY #1</data>
+</node>
+<node id="ELDERLY LADY #2">
+  <data key="d0">ELDERLY LADY #2</data>
+</node>
+<node id="ORDERLY">
+  <data key="d0">ORDERLY</data>
+</node>
+<node id="PETE">
+  <data key="d0">PETE</data>
+</node>
+<node id="HOWIE">
+  <data key="d0">HOWIE</data>
+</node>
+<node id="THE RIVER">
+  <data key="d0">THE RIVER</data>
+</node>
+<node id="THE MOUSE">
+  <data key="d0">THE MOUSE</data>
+</node>
+<node id="BEHIND THE PARTITION">
+  <data key="d0">BEHIND THE PARTITION</data>
+</node>
+<node id="RESUME MAIN CHAMBER">
+  <data key="d0">RESUME MAIN CHAMBER</data>
+</node>
+<node id="BITTERBUCK">
+  <data key="d0">BITTERBUCK</data>
+</node>
+<node id="AT THE GUARD STATION">
+  <data key="d0">AT THE GUARD STATION</data>
+</node>
+<node id="COFFEY'S CELL">
+  <data key="d0">COFFEY'S CELL</data>
+</node>
+<node id="THE DOOR">
+  <data key="d0">THE DOOR</data>
+</node>
+<node id="BURT">
+  <data key="d0">BURT</data>
+</node>
+<node id="CYNTHIA">
+  <data key="d0">CYNTHIA</data>
+</node>
+<node id="EARL">
+  <data key="d0">EARL</data>
+</node>
+<node id="FAT LADY">
+  <data key="d0">FAT LADY</data>
+</node>
+<node id="MAN">
+  <data key="d0">MAN</data>
+</node>
+<node id="WITNESSES">
+  <data key="d0">WITNESSES</data>
+</node>
+<node id="THE MEN">
+  <data key="d0">THE MEN</data>
+</node>
+<node id="ANGLE THROUGH COFFEY'S BARS">
+  <data key="d0">ANGLE THROUGH COFFEY'S BARS</data>
+</node>
+<node id="BILLY'S CELL">
+  <data key="d0">BILLY'S CELL</data>
+</node>
+<node id="THE DUTY DESK">
+  <data key="d0">THE DUTY DESK</data>
+</node>
+<node id="A WALL-MOUNTED GUN SAFE">
+  <data key="d0">A WALL-MOUNTED GUN SAFE</data>
+</node>
+<node id="WIDE SHOT OF PRISON">
+  <data key="d0">WIDE SHOT OF PRISON</data>
+</node>
+<node id="ANOTHER AREA/WOODS">
+  <data key="d0">ANOTHER AREA/WOODS</data>
+</node>
+<node id="ON THE STAKEBED">
+  <data key="d0">ON THE STAKEBED</data>
+</node>
+<node id="WIDE ANGLE OF COUNTRYSIDE">
+  <data key="d0">WIDE ANGLE OF COUNTRYSIDE</data>
+</node>
+<node id="IN THE STAKEBED">
+  <data key="d0">IN THE STAKEBED</data>
+</node>
+<node id="IN THE TRUCK CAB">
+  <data key="d0">IN THE TRUCK CAB</data>
+</node>
+<node id="BEDROOM">
+  <data key="d0">BEDROOM</data>
+</node>
+<node id="DOWNSTAIRS PARLOR">
+  <data key="d0">DOWNSTAIRS PARLOR</data>
+</node>
+<node id="WILD BILL">
+  <data key="d0">WILD BILL</data>
+</node>
+<node id="COP #1">
+  <data key="d0">COP #1</data>
+</node>
+<node id="COP #2">
+  <data key="d0">COP #2</data>
+</node>
+<node id="MEDIC">
+  <data key="d0">MEDIC</data>
+</node>
+<node id="IN THE AUDITORIUM">
+  <data key="d0">IN THE AUDITORIUM</data>
+</node>
+<node id="PROJECTION BOOTH">
+  <data key="d0">PROJECTION BOOTH</data>
+</node>
+<node id="IN TIGHT ANGLES">
+  <data key="d0">IN TIGHT ANGLES</data>
+</node>
+<node id="JACK VAN HAY">
+  <data key="d0">JACK VAN HAY</data>
+</node>
+<node id="KATHE AND CORA">
+  <data key="d0">KATHE AND CORA</data>
+</node>
+<node id="THE WITNESSES">
+  <data key="d0">THE WITNESSES</data>
+</node>
+<edge source="BRUTAL" target="PAUL">
+  <data key="d1">27</data>
+</edge>
+<edge source="BRUTAL" target="COFFEY">
+  <data key="d1">16</data>
+</edge>
+<edge source="BRUTAL" target="PERCY">
+  <data key="d1">13</data>
+</edge>
+<edge source="BRUTAL" target="HARRY">
+  <data key="d1">12</data>
+</edge>
+<edge source="BRUTAL" target="DEAN">
+  <data key="d1">9</data>
+</edge>
+<edge source="BRUTAL" target="BILLY">
+  <data key="d1">8</data>
+</edge>
+<edge source="BRUTAL" target="DEL">
+  <data key="d1">7</data>
+</edge>
+<edge source="BRUTAL" target="HAL">
+  <data key="d1">5</data>
+</edge>
+<edge source="BRUTAL" target="VAN HAY">
+  <data key="d1">2</data>
+</edge>
+<edge source="BRUTAL" target="TIMECUT:">
+  <data key="d1">2</data>
+</edge>
+<edge source="BRUTAL" target="JAN">
+  <data key="d1">2</data>
+</edge>
+<edge source="BRUTAL" target="MELINDA">
+  <data key="d1">2</data>
+</edge>
+<edge source="BRUTAL" target="BILL">
+  <data key="d1">1</data>
+</edge>
+<edge source="BRUTAL" target="THE MOUSE">
+  <data key="d1">1</data>
+</edge>
+<edge source="BRUTAL" target="BEHIND THE PARTITION">
+  <data key="d1">1</data>
+</edge>
+<edge source="BRUTAL" target="RESUME MAIN CHAMBER">
+  <data key="d1">1</data>
+</edge>
+<edge source="BRUTAL" target="TOOT">
+  <data key="d1">1</data>
+</edge>
+<edge source="BRUTAL" target="AT THE GUARD STATION">
+  <data key="d1">1</data>
+</edge>
+<edge source="BRUTAL" target="COFFEY'S CELL">
+  <data key="d1">1</data>
+</edge>
+<edge source="BRUTAL" target="THE DOOR">
+  <data key="d1">1</data>
+</edge>
+<edge source="BRUTAL" target="FAT LADY">
+  <data key="d1">1</data>
+</edge>
+<edge source="BRUTAL" target="MAN">
+  <data key="d1">1</data>
+</edge>
+<edge source="BRUTAL" target="WITNESSES">
+  <data key="d1">1</data>
+</edge>
+<edge source="BRUTAL" target="THE MEN">
+  <data key="d1">1</data>
+</edge>
+<edge source="BRUTAL" target="ORDERLY">
+  <data key="d1">1</data>
+</edge>
+<edge source="BRUTAL" target="ANGLE THROUGH COFFEY'S BARS">
+  <data key="d1">1</data>
+</edge>
+<edge source="BRUTAL" target="BILLY'S CELL">
+  <data key="d1">1</data>
+</edge>
+<edge source="BRUTAL" target="THE DUTY DESK">
+  <data key="d1">1</data>
+</edge>
+<edge source="BRUTAL" target="A WALL-MOUNTED GUN SAFE">
+  <data key="d1">1</data>
+</edge>
+<edge source="BRUTAL" target="WIDE SHOT OF PRISON">
+  <data key="d1">1</data>
+</edge>
+<edge source="BRUTAL" target="ANOTHER AREA/WOODS">
+  <data key="d1">1</data>
+</edge>
+<edge source="BRUTAL" target="ON THE STAKEBED">
+  <data key="d1">1</data>
+</edge>
+<edge source="BRUTAL" target="WIDE ANGLE OF COUNTRYSIDE">
+  <data key="d1">1</data>
+</edge>
+<edge source="BRUTAL" target="IN THE STAKEBED">
+  <data key="d1">1</data>
+</edge>
+<edge source="BRUTAL" target="IN THE TRUCK CAB">
+  <data key="d1">1</data>
+</edge>
+<edge source="BRUTAL" target="BEDROOM">
+  <data key="d1">1</data>
+</edge>
+<edge source="BRUTAL" target="DOWNSTAIRS PARLOR">
+  <data key="d1">1</data>
+</edge>
+<edge source="BRUTAL" target="WILD BILL">
+  <data key="d1">1</data>
+</edge>
+<edge source="BRUTAL" target="COP #1">
+  <data key="d1">1</data>
+</edge>
+<edge source="BRUTAL" target="COP #2">
+  <data key="d1">1</data>
+</edge>
+<edge source="BRUTAL" target="MEDIC">
+  <data key="d1">1</data>
+</edge>
+<edge source="BRUTAL" target="FRED ASTAIRE">
+  <data key="d1">1</data>
+</edge>
+<edge source="BRUTAL" target="IN THE AUDITORIUM">
+  <data key="d1">1</data>
+</edge>
+<edge source="BRUTAL" target="PROJECTION BOOTH">
+  <data key="d1">1</data>
+</edge>
+<edge source="BRUTAL" target="IN TIGHT ANGLES">
+  <data key="d1">1</data>
+</edge>
+<edge source="BRUTAL" target="JACK VAN HAY">
+  <data key="d1">1</data>
+</edge>
+<edge source="BRUTAL" target="KATHE AND CORA">
+  <data key="d1">1</data>
+</edge>
+<edge source="BRUTAL" target="MARJORIE">
+  <data key="d1">1</data>
+</edge>
+<edge source="BRUTAL" target="THE WITNESSES">
+  <data key="d1">1</data>
+</edge>
+<edge source="PAUL" target="COFFEY">
+  <data key="d1">23</data>
+</edge>
+<edge source="PAUL" target="PERCY">
+  <data key="d1">14</data>
+</edge>
+<edge source="PAUL" target="HARRY">
+  <data key="d1">13</data>
+</edge>
+<edge source="PAUL" target="DEL">
+  <data key="d1">10</data>
+</edge>
+<edge source="PAUL" target="BILLY">
+  <data key="d1">10</data>
+</edge>
+<edge source="PAUL" target="JAN">
+  <data key="d1">9</data>
+</edge>
+<edge source="PAUL" target="DEAN">
+  <data key="d1">9</data>
+</edge>
+<edge source="PAUL" target="HAL">
+  <data key="d1">8</data>
+</edge>
+<edge source="PAUL" target="ELAINE">
+  <data key="d1">6</data>
+</edge>
+<edge source="PAUL" target="BRAD">
+  <data key="d1">3</data>
+</edge>
+<edge source="PAUL" target="KLAUS">
+  <data key="d1">3</data>
+</edge>
+<edge source="PAUL" target="MARJORIE">
+  <data key="d1">3</data>
+</edge>
+<edge source="PAUL" target="VAN HAY">
+  <data key="d1">3</data>
+</edge>
+<edge source="PAUL" target="FRED ASTAIRE">
+  <data key="d1">2</data>
+</edge>
+<edge source="PAUL" target="TOOT">
+  <data key="d1">2</data>
+</edge>
+<edge source="PAUL" target="TIMECUT:">
+  <data key="d1">2</data>
+</edge>
+<edge source="PAUL" target="MELINDA">
+  <data key="d1">2</data>
+</edge>
+<edge source="PAUL" target="ELDERLY LADIES">
+  <data key="d1">1</data>
+</edge>
+<edge source="PAUL" target="ELDERLY LADY #1">
+  <data key="d1">1</data>
+</edge>
+<edge source="PAUL" target="ELDERLY LADY #2">
+  <data key="d1">1</data>
+</edge>
+<edge source="PAUL" target="ORDERLY">
+  <data key="d1">1</data>
+</edge>
+<edge source="PAUL" target="PETE">
+  <data key="d1">1</data>
+</edge>
+<edge source="PAUL" target="HOWIE">
+  <data key="d1">1</data>
+</edge>
+<edge source="PAUL" target="THE RIVER">
+  <data key="d1">1</data>
+</edge>
+<edge source="PAUL" target="BILL">
+  <data key="d1">1</data>
+</edge>
+<edge source="PAUL" target="THE MOUSE">
+  <data key="d1">1</data>
+</edge>
+<edge source="PAUL" target="BEHIND THE PARTITION">
+  <data key="d1">1</data>
+</edge>
+<edge source="PAUL" target="RESUME MAIN CHAMBER">
+  <data key="d1">1</data>
+</edge>
+<edge source="PAUL" target="BITTERBUCK">
+  <data key="d1">1</data>
+</edge>
+<edge source="PAUL" target="AT THE GUARD STATION">
+  <data key="d1">1</data>
+</edge>
+<edge source="PAUL" target="COFFEY'S CELL">
+  <data key="d1">1</data>
+</edge>
+<edge source="PAUL" target="THE DOOR">
+  <data key="d1">1</data>
+</edge>
+<edge source="PAUL" target="BURT">
+  <data key="d1">1</data>
+</edge>
+<edge source="PAUL" target="CYNTHIA">
+  <data key="d1">1</data>
+</edge>
+<edge source="PAUL" target="FAT LADY">
+  <data key="d1">1</data>
+</edge>
+<edge source="PAUL" target="MAN">
+  <data key="d1">1</data>
+</edge>
+<edge source="PAUL" target="WITNESSES">
+  <data key="d1">1</data>
+</edge>
+<edge source="PAUL" target="THE MEN">
+  <data key="d1">1</data>
+</edge>
+<edge source="PAUL" target="ANGLE THROUGH COFFEY'S BARS">
+  <data key="d1">1</data>
+</edge>
+<edge source="PAUL" target="BILLY'S CELL">
+  <data key="d1">1</data>
+</edge>
+<edge source="PAUL" target="THE DUTY DESK">
+  <data key="d1">1</data>
+</edge>
+<edge source="PAUL" target="A WALL-MOUNTED GUN SAFE">
+  <data key="d1">1</data>
+</edge>
+<edge source="PAUL" target="WIDE SHOT OF PRISON">
+  <data key="d1">1</data>
+</edge>
+<edge source="PAUL" target="ANOTHER AREA/WOODS">
+  <data key="d1">1</data>
+</edge>
+<edge source="PAUL" target="ON THE STAKEBED">
+  <data key="d1">1</data>
+</edge>
+<edge source="PAUL" target="WIDE ANGLE OF COUNTRYSIDE">
+  <data key="d1">1</data>
+</edge>
+<edge source="PAUL" target="IN THE STAKEBED">
+  <data key="d1">1</data>
+</edge>
+<edge source="PAUL" target="IN THE TRUCK CAB">
+  <data key="d1">1</data>
+</edge>
+<edge source="PAUL" target="BEDROOM">
+  <data key="d1">1</data>
+</edge>
+<edge source="PAUL" target="DOWNSTAIRS PARLOR">
+  <data key="d1">1</data>
+</edge>
+<edge source="PAUL" target="WILD BILL">
+  <data key="d1">1</data>
+</edge>
+<edge source="PAUL" target="COP #1">
+  <data key="d1">1</data>
+</edge>
+<edge source="PAUL" target="COP #2">
+  <data key="d1">1</data>
+</edge>
+<edge source="PAUL" target="MEDIC">
+  <data key="d1">1</data>
+</edge>
+<edge source="PAUL" target="IN THE AUDITORIUM">
+  <data key="d1">1</data>
+</edge>
+<edge source="PAUL" target="PROJECTION BOOTH">
+  <data key="d1">1</data>
+</edge>
+<edge source="PAUL" target="IN TIGHT ANGLES">
+  <data key="d1">1</data>
+</edge>
+<edge source="PAUL" target="JACK VAN HAY">
+  <data key="d1">1</data>
+</edge>
+<edge source="PAUL" target="KATHE AND CORA">
+  <data key="d1">1</data>
+</edge>
+<edge source="PAUL" target="THE WITNESSES">
+  <data key="d1">1</data>
+</edge>
+<edge source="COFFEY" target="DEL">
+  <data key="d1">9</data>
+</edge>
+<edge source="COFFEY" target="HARRY">
+  <data key="d1">7</data>
+</edge>
+<edge source="COFFEY" target="PERCY">
+  <data key="d1">7</data>
+</edge>
+<edge source="COFFEY" target="BILLY">
+  <data key="d1">7</data>
+</edge>
+<edge source="COFFEY" target="HAL">
+  <data key="d1">5</data>
+</edge>
+<edge source="COFFEY" target="DEAN">
+  <data key="d1">5</data>
+</edge>
+<edge source="COFFEY" target="MELINDA">
+  <data key="d1">3</data>
+</edge>
+<edge source="COFFEY" target="THE RIVER">
+  <data key="d1">1</data>
+</edge>
+<edge source="COFFEY" target="BILL">
+  <data key="d1">1</data>
+</edge>
+<edge source="COFFEY" target="THE MOUSE">
+  <data key="d1">1</data>
+</edge>
+<edge source="COFFEY" target="AT THE GUARD STATION">
+  <data key="d1">1</data>
+</edge>
+<edge source="COFFEY" target="COFFEY'S CELL">
+  <data key="d1">1</data>
+</edge>
+<edge source="COFFEY" target="THE DOOR">
+  <data key="d1">1</data>
+</edge>
+<edge source="COFFEY" target="TOOT">
+  <data key="d1">1</data>
+</edge>
+<edge source="COFFEY" target="FAT LADY">
+  <data key="d1">1</data>
+</edge>
+<edge source="COFFEY" target="MAN">
+  <data key="d1">1</data>
+</edge>
+<edge source="COFFEY" target="VAN HAY">
+  <data key="d1">1</data>
+</edge>
+<edge source="COFFEY" target="WITNESSES">
+  <data key="d1">1</data>
+</edge>
+<edge source="COFFEY" target="ANGLE THROUGH COFFEY'S BARS">
+  <data key="d1">1</data>
+</edge>
+<edge source="COFFEY" target="BILLY'S CELL">
+  <data key="d1">1</data>
+</edge>
+<edge source="COFFEY" target="THE DUTY DESK">
+  <data key="d1">1</data>
+</edge>
+<edge source="COFFEY" target="A WALL-MOUNTED GUN SAFE">
+  <data key="d1">1</data>
+</edge>
+<edge source="COFFEY" target="WIDE SHOT OF PRISON">
+  <data key="d1">1</data>
+</edge>
+<edge source="COFFEY" target="ANOTHER AREA/WOODS">
+  <data key="d1">1</data>
+</edge>
+<edge source="COFFEY" target="ON THE STAKEBED">
+  <data key="d1">1</data>
+</edge>
+<edge source="COFFEY" target="WIDE ANGLE OF COUNTRYSIDE">
+  <data key="d1">1</data>
+</edge>
+<edge source="COFFEY" target="IN THE STAKEBED">
+  <data key="d1">1</data>
+</edge>
+<edge source="COFFEY" target="IN THE TRUCK CAB">
+  <data key="d1">1</data>
+</edge>
+<edge source="COFFEY" target="BEDROOM">
+  <data key="d1">1</data>
+</edge>
+<edge source="COFFEY" target="DOWNSTAIRS PARLOR">
+  <data key="d1">1</data>
+</edge>
+<edge source="COFFEY" target="WILD BILL">
+  <data key="d1">1</data>
+</edge>
+<edge source="COFFEY" target="FRED ASTAIRE">
+  <data key="d1">1</data>
+</edge>
+<edge source="COFFEY" target="IN THE AUDITORIUM">
+  <data key="d1">1</data>
+</edge>
+<edge source="COFFEY" target="PROJECTION BOOTH">
+  <data key="d1">1</data>
+</edge>
+<edge source="COFFEY" target="IN TIGHT ANGLES">
+  <data key="d1">1</data>
+</edge>
+<edge source="COFFEY" target="JACK VAN HAY">
+  <data key="d1">1</data>
+</edge>
+<edge source="COFFEY" target="KATHE AND CORA">
+  <data key="d1">1</data>
+</edge>
+<edge source="COFFEY" target="MARJORIE">
+  <data key="d1">1</data>
+</edge>
+<edge source="COFFEY" target="THE WITNESSES">
+  <data key="d1">1</data>
+</edge>
+<edge source="PERCY" target="DEL">
+  <data key="d1">6</data>
+</edge>
+<edge source="PERCY" target="HARRY">
+  <data key="d1">6</data>
+</edge>
+<edge source="PERCY" target="DEAN">
+  <data key="d1">6</data>
+</edge>
+<edge source="PERCY" target="BILLY">
+  <data key="d1">4</data>
+</edge>
+<edge source="PERCY" target="VAN HAY">
+  <data key="d1">3</data>
+</edge>
+<edge source="PERCY" target="HAL">
+  <data key="d1">3</data>
+</edge>
+<edge source="PERCY" target="BILL">
+  <data key="d1">1</data>
+</edge>
+<edge source="PERCY" target="THE MOUSE">
+  <data key="d1">1</data>
+</edge>
+<edge source="PERCY" target="BEHIND THE PARTITION">
+  <data key="d1">1</data>
+</edge>
+<edge source="PERCY" target="RESUME MAIN CHAMBER">
+  <data key="d1">1</data>
+</edge>
+<edge source="PERCY" target="TOOT">
+  <data key="d1">1</data>
+</edge>
+<edge source="PERCY" target="AT THE GUARD STATION">
+  <data key="d1">1</data>
+</edge>
+<edge source="PERCY" target="FAT LADY">
+  <data key="d1">1</data>
+</edge>
+<edge source="PERCY" target="MAN">
+  <data key="d1">1</data>
+</edge>
+<edge source="PERCY" target="WITNESSES">
+  <data key="d1">1</data>
+</edge>
+<edge source="PERCY" target="A WALL-MOUNTED GUN SAFE">
+  <data key="d1">1</data>
+</edge>
+<edge source="PERCY" target="WILD BILL">
+  <data key="d1">1</data>
+</edge>
+<edge source="PERCY" target="COP #1">
+  <data key="d1">1</data>
+</edge>
+<edge source="PERCY" target="COP #2">
+  <data key="d1">1</data>
+</edge>
+<edge source="PERCY" target="MEDIC">
+  <data key="d1">1</data>
+</edge>
+<edge source="HARRY" target="DEAN">
+  <data key="d1">7</data>
+</edge>
+<edge source="HARRY" target="DEL">
+  <data key="d1">4</data>
+</edge>
+<edge source="HARRY" target="BILLY">
+  <data key="d1">4</data>
+</edge>
+<edge source="HARRY" target="TOOT">
+  <data key="d1">2</data>
+</edge>
+<edge source="HARRY" target="JAN">
+  <data key="d1">2</data>
+</edge>
+<edge source="HARRY" target="BILL">
+  <data key="d1">1</data>
+</edge>
+<edge source="HARRY" target="THE MOUSE">
+  <data key="d1">1</data>
+</edge>
+<edge source="HARRY" target="BEHIND THE PARTITION">
+  <data key="d1">1</data>
+</edge>
+<edge source="HARRY" target="RESUME MAIN CHAMBER">
+  <data key="d1">1</data>
+</edge>
+<edge source="HARRY" target="VAN HAY">
+  <data key="d1">1</data>
+</edge>
+<edge source="HARRY" target="COFFEY'S CELL">
+  <data key="d1">1</data>
+</edge>
+<edge source="HARRY" target="THE DOOR">
+  <data key="d1">1</data>
+</edge>
+<edge source="HARRY" target="TIMECUT:">
+  <data key="d1">1</data>
+</edge>
+<edge source="HARRY" target="THE MEN">
+  <data key="d1">1</data>
+</edge>
+<edge source="HARRY" target="ANGLE THROUGH COFFEY'S BARS">
+  <data key="d1">1</data>
+</edge>
+<edge source="HARRY" target="BILLY'S CELL">
+  <data key="d1">1</data>
+</edge>
+<edge source="HARRY" target="THE DUTY DESK">
+  <data key="d1">1</data>
+</edge>
+<edge source="HARRY" target="ANOTHER AREA/WOODS">
+  <data key="d1">1</data>
+</edge>
+<edge source="HARRY" target="ON THE STAKEBED">
+  <data key="d1">1</data>
+</edge>
+<edge source="HARRY" target="WIDE ANGLE OF COUNTRYSIDE">
+  <data key="d1">1</data>
+</edge>
+<edge source="HARRY" target="WILD BILL">
+  <data key="d1">1</data>
+</edge>
+<edge source="HARRY" target="COP #1">
+  <data key="d1">1</data>
+</edge>
+<edge source="HARRY" target="COP #2">
+  <data key="d1">1</data>
+</edge>
+<edge source="HARRY" target="HAL">
+  <data key="d1">1</data>
+</edge>
+<edge source="HARRY" target="MEDIC">
+  <data key="d1">1</data>
+</edge>
+<edge source="DEL" target="BILLY">
+  <data key="d1">4</data>
+</edge>
+<edge source="DEL" target="BILL">
+  <data key="d1">2</data>
+</edge>
+<edge source="DEL" target="THE MOUSE">
+  <data key="d1">1</data>
+</edge>
+<edge source="DEL" target="AT THE GUARD STATION">
+  <data key="d1">1</data>
+</edge>
+<edge source="DEL" target="COFFEY'S CELL">
+  <data key="d1">1</data>
+</edge>
+<edge source="DEL" target="THE DOOR">
+  <data key="d1">1</data>
+</edge>
+<edge source="DEL" target="TOOT">
+  <data key="d1">1</data>
+</edge>
+<edge source="DEL" target="EARL">
+  <data key="d1">1</data>
+</edge>
+<edge source="DEL" target="DEAN">
+  <data key="d1">1</data>
+</edge>
+<edge source="DEL" target="FAT LADY">
+  <data key="d1">1</data>
+</edge>
+<edge source="DEL" target="HAL">
+  <data key="d1">1</data>
+</edge>
+<edge source="DEL" target="MAN">
+  <data key="d1">1</data>
+</edge>
+<edge source="DEL" target="VAN HAY">
+  <data key="d1">1</data>
+</edge>
+<edge source="DEL" target="WITNESSES">
+  <data key="d1">1</data>
+</edge>
+<edge source="BILLY" target="DEAN">
+  <data key="d1">3</data>
+</edge>
+<edge source="BILLY" target="TIMECUT:">
+  <data key="d1">2</data>
+</edge>
+<edge source="BILLY" target="COFFEY'S CELL">
+  <data key="d1">1</data>
+</edge>
+<edge source="BILLY" target="THE DOOR">
+  <data key="d1">1</data>
+</edge>
+<edge source="BILLY" target="FAT LADY">
+  <data key="d1">1</data>
+</edge>
+<edge source="BILLY" target="HAL">
+  <data key="d1">1</data>
+</edge>
+<edge source="BILLY" target="MAN">
+  <data key="d1">1</data>
+</edge>
+<edge source="BILLY" target="VAN HAY">
+  <data key="d1">1</data>
+</edge>
+<edge source="BILLY" target="WITNESSES">
+  <data key="d1">1</data>
+</edge>
+<edge source="BILLY" target="ANGLE THROUGH COFFEY'S BARS">
+  <data key="d1">1</data>
+</edge>
+<edge source="BILLY" target="BILLY'S CELL">
+  <data key="d1">1</data>
+</edge>
+<edge source="BILLY" target="THE DUTY DESK">
+  <data key="d1">1</data>
+</edge>
+<edge source="BILLY" target="A WALL-MOUNTED GUN SAFE">
+  <data key="d1">1</data>
+</edge>
+<edge source="BILLY" target="WILD BILL">
+  <data key="d1">1</data>
+</edge>
+<edge source="JAN" target="DEAN">
+  <data key="d1">2</data>
+</edge>
+<edge source="JAN" target="THE MEN">
+  <data key="d1">1</data>
+</edge>
+<edge source="DEAN" target="BEHIND THE PARTITION">
+  <data key="d1">1</data>
+</edge>
+<edge source="DEAN" target="RESUME MAIN CHAMBER">
+  <data key="d1">1</data>
+</edge>
+<edge source="DEAN" target="TOOT">
+  <data key="d1">1</data>
+</edge>
+<edge source="DEAN" target="VAN HAY">
+  <data key="d1">1</data>
+</edge>
+<edge source="DEAN" target="THE MEN">
+  <data key="d1">1</data>
+</edge>
+<edge source="DEAN" target="ANGLE THROUGH COFFEY'S BARS">
+  <data key="d1">1</data>
+</edge>
+<edge source="DEAN" target="BILLY'S CELL">
+  <data key="d1">1</data>
+</edge>
+<edge source="DEAN" target="THE DUTY DESK">
+  <data key="d1">1</data>
+</edge>
+<edge source="DEAN" target="A WALL-MOUNTED GUN SAFE">
+  <data key="d1">1</data>
+</edge>
+<edge source="DEAN" target="WILD BILL">
+  <data key="d1">1</data>
+</edge>
+<edge source="DEAN" target="COP #1">
+  <data key="d1">1</data>
+</edge>
+<edge source="DEAN" target="COP #2">
+  <data key="d1">1</data>
+</edge>
+<edge source="DEAN" target="HAL">
+  <data key="d1">1</data>
+</edge>
+<edge source="DEAN" target="MEDIC">
+  <data key="d1">1</data>
+</edge>
+<edge source="HAL" target="MELINDA">
+  <data key="d1">3</data>
+</edge>
+<edge source="HAL" target="THE RIVER">
+  <data key="d1">1</data>
+</edge>
+<edge source="HAL" target="FAT LADY">
+  <data key="d1">1</data>
+</edge>
+<edge source="HAL" target="MAN">
+  <data key="d1">1</data>
+</edge>
+<edge source="HAL" target="VAN HAY">
+  <data key="d1">1</data>
+</edge>
+<edge source="HAL" target="WITNESSES">
+  <data key="d1">1</data>
+</edge>
+<edge source="HAL" target="IN THE STAKEBED">
+  <data key="d1">1</data>
+</edge>
+<edge source="HAL" target="IN THE TRUCK CAB">
+  <data key="d1">1</data>
+</edge>
+<edge source="HAL" target="BEDROOM">
+  <data key="d1">1</data>
+</edge>
+<edge source="HAL" target="DOWNSTAIRS PARLOR">
+  <data key="d1">1</data>
+</edge>
+<edge source="HAL" target="COP #1">
+  <data key="d1">1</data>
+</edge>
+<edge source="HAL" target="COP #2">
+  <data key="d1">1</data>
+</edge>
+<edge source="HAL" target="MEDIC">
+  <data key="d1">1</data>
+</edge>
+<edge source="ELAINE" target="BRAD">
+  <data key="d1">3</data>
+</edge>
+<edge source="ELAINE" target="ELDERLY LADIES">
+  <data key="d1">1</data>
+</edge>
+<edge source="ELAINE" target="ELDERLY LADY #1">
+  <data key="d1">1</data>
+</edge>
+<edge source="ELAINE" target="ELDERLY LADY #2">
+  <data key="d1">1</data>
+</edge>
+<edge source="ELAINE" target="FRED ASTAIRE">
+  <data key="d1">1</data>
+</edge>
+<edge source="ELAINE" target="ORDERLY">
+  <data key="d1">1</data>
+</edge>
+<edge source="ELAINE" target="PETE">
+  <data key="d1">1</data>
+</edge>
+<edge source="BRAD" target="ELDERLY LADIES">
+  <data key="d1">1</data>
+</edge>
+<edge source="BRAD" target="ELDERLY LADY #1">
+  <data key="d1">1</data>
+</edge>
+<edge source="BRAD" target="ELDERLY LADY #2">
+  <data key="d1">1</data>
+</edge>
+<edge source="BRAD" target="FRED ASTAIRE">
+  <data key="d1">1</data>
+</edge>
+<edge source="BRAD" target="ORDERLY">
+  <data key="d1">1</data>
+</edge>
+<edge source="BRAD" target="PETE">
+  <data key="d1">1</data>
+</edge>
+<edge source="KLAUS" target="MARJORIE">
+  <data key="d1">2</data>
+</edge>
+<edge source="KLAUS" target="HOWIE">
+  <data key="d1">1</data>
+</edge>
+<edge source="MARJORIE" target="HOWIE">
+  <data key="d1">1</data>
+</edge>
+<edge source="MARJORIE" target="IN TIGHT ANGLES">
+  <data key="d1">1</data>
+</edge>
+<edge source="MARJORIE" target="JACK VAN HAY">
+  <data key="d1">1</data>
+</edge>
+<edge source="MARJORIE" target="KATHE AND CORA">
+  <data key="d1">1</data>
+</edge>
+<edge source="MARJORIE" target="THE WITNESSES">
+  <data key="d1">1</data>
+</edge>
+<edge source="VAN HAY" target="BEHIND THE PARTITION">
+  <data key="d1">1</data>
+</edge>
+<edge source="VAN HAY" target="RESUME MAIN CHAMBER">
+  <data key="d1">1</data>
+</edge>
+<edge source="VAN HAY" target="TOOT">
+  <data key="d1">1</data>
+</edge>
+<edge source="VAN HAY" target="FAT LADY">
+  <data key="d1">1</data>
+</edge>
+<edge source="VAN HAY" target="MAN">
+  <data key="d1">1</data>
+</edge>
+<edge source="VAN HAY" target="WITNESSES">
+  <data key="d1">1</data>
+</edge>
+<edge source="MELINDA" target="IN THE STAKEBED">
+  <data key="d1">1</data>
+</edge>
+<edge source="MELINDA" target="IN THE TRUCK CAB">
+  <data key="d1">1</data>
+</edge>
+<edge source="MELINDA" target="BEDROOM">
+  <data key="d1">1</data>
+</edge>
+<edge source="MELINDA" target="DOWNSTAIRS PARLOR">
+  <data key="d1">1</data>
+</edge>
+<edge source="FRED ASTAIRE" target="ELDERLY LADIES">
+  <data key="d1">1</data>
+</edge>
+<edge source="FRED ASTAIRE" target="ELDERLY LADY #1">
+  <data key="d1">1</data>
+</edge>
+<edge source="FRED ASTAIRE" target="ELDERLY LADY #2">
+  <data key="d1">1</data>
+</edge>
+<edge source="FRED ASTAIRE" target="ORDERLY">
+  <data key="d1">1</data>
+</edge>
+<edge source="FRED ASTAIRE" target="PETE">
+  <data key="d1">1</data>
+</edge>
+<edge source="FRED ASTAIRE" target="IN THE AUDITORIUM">
+  <data key="d1">1</data>
+</edge>
+<edge source="FRED ASTAIRE" target="PROJECTION BOOTH">
+  <data key="d1">1</data>
+</edge>
+<edge source="BILL" target="THE MOUSE">
+  <data key="d1">1</data>
+</edge>
+<edge source="BILL" target="EARL">
+  <data key="d1">1</data>
+</edge>
+<edge source="TOOT" target="BEHIND THE PARTITION">
+  <data key="d1">1</data>
+</edge>
+<edge source="TOOT" target="RESUME MAIN CHAMBER">
+  <data key="d1">1</data>
+</edge>
+<edge source="ELDERLY LADIES" target="ELDERLY LADY #1">
+  <data key="d1">1</data>
+</edge>
+<edge source="ELDERLY LADIES" target="ELDERLY LADY #2">
+  <data key="d1">1</data>
+</edge>
+<edge source="ELDERLY LADIES" target="ORDERLY">
+  <data key="d1">1</data>
+</edge>
+<edge source="ELDERLY LADIES" target="PETE">
+  <data key="d1">1</data>
+</edge>
+<edge source="ELDERLY LADY #1" target="ELDERLY LADY #2">
+  <data key="d1">1</data>
+</edge>
+<edge source="ELDERLY LADY #1" target="ORDERLY">
+  <data key="d1">1</data>
+</edge>
+<edge source="ELDERLY LADY #1" target="PETE">
+  <data key="d1">1</data>
+</edge>
+<edge source="ELDERLY LADY #2" target="ORDERLY">
+  <data key="d1">1</data>
+</edge>
+<edge source="ELDERLY LADY #2" target="PETE">
+  <data key="d1">1</data>
+</edge>
+<edge source="ORDERLY" target="PETE">
+  <data key="d1">1</data>
+</edge>
+<edge source="BEHIND THE PARTITION" target="RESUME MAIN CHAMBER">
+  <data key="d1">1</data>
+</edge>
+<edge source="COFFEY'S CELL" target="THE DOOR">
+  <data key="d1">1</data>
+</edge>
+<edge source="BURT" target="CYNTHIA">
+  <data key="d1">1</data>
+</edge>
+<edge source="FAT LADY" target="MAN">
+  <data key="d1">1</data>
+</edge>
+<edge source="FAT LADY" target="WITNESSES">
+  <data key="d1">1</data>
+</edge>
+<edge source="MAN" target="WITNESSES">
+  <data key="d1">1</data>
+</edge>
+<edge source="ANGLE THROUGH COFFEY'S BARS" target="BILLY'S CELL">
+  <data key="d1">1</data>
+</edge>
+<edge source="ANGLE THROUGH COFFEY'S BARS" target="THE DUTY DESK">
+  <data key="d1">1</data>
+</edge>
+<edge source="BILLY'S CELL" target="THE DUTY DESK">
+  <data key="d1">1</data>
+</edge>
+<edge source="ANOTHER AREA/WOODS" target="ON THE STAKEBED">
+  <data key="d1">1</data>
+</edge>
+<edge source="ANOTHER AREA/WOODS" target="WIDE ANGLE OF COUNTRYSIDE">
+  <data key="d1">1</data>
+</edge>
+<edge source="ON THE STAKEBED" target="WIDE ANGLE OF COUNTRYSIDE">
+  <data key="d1">1</data>
+</edge>
+<edge source="IN THE STAKEBED" target="IN THE TRUCK CAB">
+  <data key="d1">1</data>
+</edge>
+<edge source="BEDROOM" target="DOWNSTAIRS PARLOR">
+  <data key="d1">1</data>
+</edge>
+<edge source="COP #1" target="COP #2">
+  <data key="d1">1</data>
+</edge>
+<edge source="COP #1" target="MEDIC">
+  <data key="d1">1</data>
+</edge>
+<edge source="COP #2" target="MEDIC">
+  <data key="d1">1</data>
+</edge>
+<edge source="IN THE AUDITORIUM" target="PROJECTION BOOTH">
+  <data key="d1">1</data>
+</edge>
+<edge source="IN TIGHT ANGLES" target="JACK VAN HAY">
+  <data key="d1">1</data>
+</edge>
+<edge source="IN TIGHT ANGLES" target="KATHE AND CORA">
+  <data key="d1">1</data>
+</edge>
+<edge source="IN TIGHT ANGLES" target="THE WITNESSES">
+  <data key="d1">1</data>
+</edge>
+<edge source="JACK VAN HAY" target="KATHE AND CORA">
+  <data key="d1">1</data>
+</edge>
+<edge source="JACK VAN HAY" target="THE WITNESSES">
+  <data key="d1">1</data>
+</edge>
+<edge source="KATHE AND CORA" target="THE WITNESSES">
+  <data key="d1">1</data>
+</edge>
+</graph></graphml>
